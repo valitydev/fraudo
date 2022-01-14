@@ -1,0 +1,22 @@
+name: Deploy package
+
+on:
+  push:
+    branches:
+      - 'master'
+      - 'main'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Deploy package
+        uses: valitydev/action-deploy-jdk-package@v1.0.12
+        with:
+          server-username: ${{ secrets.OSSRH_USERNAME }}
+          server-password: ${{ secrets.OSSRH_TOKEN }}
+          deploy-secret-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+          deploy-secret-key-password: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}

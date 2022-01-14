@@ -1,0 +1,19 @@
+name: Build Artifact
+
+on:
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Maven Central Repository
+        uses: actions/setup-java@v2
+        with:
+          java-version: '15'
+          distribution: 'adopt'
+      - name: Build package
+        run: mvn --batch-mode clean compile
