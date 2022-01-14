@@ -1,6 +1,6 @@
 package dev.vality.fraudo;
 
-import com.rbkmoney.fraudo.FraudoPaymentParser.ParseContext;
+import dev.vality.fraudo.FraudoPaymentParser.ParseContext;
 import dev.vality.fraudo.aggregator.UniqueValueAggregator;
 import dev.vality.fraudo.finder.InListFinder;
 import dev.vality.fraudo.model.ResultModel;
@@ -44,7 +44,8 @@ public class AbstractPaymentTest {
     CustomerTypeResolver<PaymentModel> customerTypeResolver;
 
     private FieldResolver<PaymentModel, PaymentCheckedField> fieldResolver = new PaymentModelFieldResolver();
-    private PaymentGroupResolver<PaymentModel, PaymentCheckedField> paymentGroupResolver = new PaymentGroupResolver<>(fieldResolver);
+    private PaymentGroupResolver<PaymentModel, PaymentCheckedField> paymentGroupResolver =
+            new PaymentGroupResolver<>(fieldResolver);
 
     ResultModel parseAndVisit(InputStream resourceAsStream) throws IOException {
         ParseContext parse = getParseContext(resourceAsStream);
@@ -89,8 +90,10 @@ public class AbstractPaymentTest {
     }
 
     ParseContext getParseContext(InputStream resourceAsStream) throws IOException {
-        com.rbkmoney.fraudo.FraudoPaymentLexer lexer = new com.rbkmoney.fraudo.FraudoPaymentLexer(new ANTLRInputStream(resourceAsStream));
-        com.rbkmoney.fraudo.FraudoPaymentParser parser = new com.rbkmoney.fraudo.FraudoPaymentParser(new CommonTokenStream(lexer));
+        dev.vality.fraudo.FraudoPaymentLexer lexer =
+                new dev.vality.fraudo.FraudoPaymentLexer(new ANTLRInputStream(resourceAsStream));
+        dev.vality.fraudo.FraudoPaymentParser parser =
+                new dev.vality.fraudo.FraudoPaymentParser(new CommonTokenStream(lexer));
         return parser.parse();
     }
 

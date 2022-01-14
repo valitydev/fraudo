@@ -1,7 +1,7 @@
 package dev.vality.fraudo.p2p;
 
-import com.rbkmoney.fraudo.FraudoP2PParser;
 import dev.vality.fraudo.CustomTest;
+import dev.vality.fraudo.FraudoP2PParser;
 import dev.vality.fraudo.constant.ResultStatus;
 import dev.vality.fraudo.exception.UnknownResultException;
 import dev.vality.fraudo.model.ResultModel;
@@ -134,7 +134,8 @@ public class CustomP2PTest extends AbstractP2PTest {
     @Test
     public void catchTest() throws Exception {
         InputStream resourceAsStream = CustomP2PTest.class.getResourceAsStream("/rules/p2p/catch.frd");
-        when(uniqueValueAggregator.countUniqueValue(any(), any(), any(), any(), any())).thenThrow(new UnknownResultException("as"));
+        when(uniqueValueAggregator.countUniqueValue(any(), any(), any(), any(), any()))
+                .thenThrow(new UnknownResultException("as"));
         FraudoP2PParser.ParseContext parseContext = getParseContext(resourceAsStream);
         ResultModel result = invokeParse(parseContext);
         assertEquals(ResultStatus.DECLINE, ResultUtils.findFirstNotNotifyStatus(result).get().getResultStatus());
@@ -177,7 +178,8 @@ public class CustomP2PTest extends AbstractP2PTest {
 
     @Test
     public void uniqCountGroupByTest() throws Exception {
-        InputStream resourceAsStream = CustomP2PTest.class.getResourceAsStream("/rules/p2p/count_uniqGroupBy_window.frd");
+        InputStream resourceAsStream =
+                CustomP2PTest.class.getResourceAsStream("/rules/p2p/count_uniqGroupBy_window.frd");
         when(uniqueValueAggregator.countUniqueValue(any(), any(), any(), any(), any())).thenReturn(2);
         FraudoP2PParser.ParseContext parseContext = getParseContext(resourceAsStream);
         ResultModel result = invokeParse(parseContext);

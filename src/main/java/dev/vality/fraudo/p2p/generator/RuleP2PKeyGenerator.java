@@ -1,6 +1,6 @@
 package dev.vality.fraudo.p2p.generator;
 
-import com.rbkmoney.fraudo.FraudoP2PParser;
+import dev.vality.fraudo.FraudoP2PParser;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

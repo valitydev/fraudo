@@ -32,7 +32,7 @@ public class P2PTest extends AbstractP2PTest {
         CountDownLatch countDownLatch = new CountDownLatch(1);
         mockAggr(countDownLatch);
 
-        com.rbkmoney.fraudo.FraudoP2PParser.ParseContext parseContext = getParseContext(resourceAsStream);
+        dev.vality.fraudo.FraudoP2PParser.ParseContext parseContext = getParseContext(resourceAsStream);
 
         P2PModel model = new P2PModel();
         model.setAmount(MILLISTIME_FAST_FUNC);

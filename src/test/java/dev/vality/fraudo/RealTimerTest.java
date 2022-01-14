@@ -1,6 +1,6 @@
 package dev.vality.fraudo;
 
-import com.rbkmoney.fraudo.FraudoPaymentParser.ParseContext;
+import dev.vality.fraudo.FraudoPaymentParser.ParseContext;
 import dev.vality.fraudo.constant.ResultStatus;
 import dev.vality.fraudo.model.ResultModel;
 import dev.vality.fraudo.test.model.PaymentModel;

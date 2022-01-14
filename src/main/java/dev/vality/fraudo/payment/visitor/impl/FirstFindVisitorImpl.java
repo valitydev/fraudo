@@ -1,8 +1,7 @@
 package dev.vality.fraudo.payment.visitor.impl;
 
-import com.rbkmoney.fraudo.FraudoPaymentBaseVisitor;
-import com.rbkmoney.fraudo.FraudoPaymentParser;
-import com.rbkmoney.fraudo.payment.visitor.*;
+import dev.vality.fraudo.FraudoPaymentBaseVisitor;
+import dev.vality.fraudo.FraudoPaymentParser;
 import dev.vality.fraudo.constant.ResultStatus;
 import dev.vality.fraudo.converter.TrustConditionConverter;
 import dev.vality.fraudo.exception.NotImplementedOperatorException;
@@ -30,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.rbkmoney.fraudo.FraudoPaymentParser.*;
+import static dev.vality.fraudo.FraudoPaymentParser.*;
 
 @Slf4j
 @RequiredArgsConstructor

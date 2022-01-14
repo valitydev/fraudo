@@ -1,6 +1,6 @@
 package dev.vality.fraudo.utils.key.generator;
 
-import com.rbkmoney.fraudo.FraudoPaymentParser;
+import dev.vality.fraudo.FraudoPaymentParser;
 import dev.vality.fraudo.utils.TextUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

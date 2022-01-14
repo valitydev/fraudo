@@ -1,6 +1,6 @@
 package dev.vality.fraudo.payment.visitor.impl;
 
-import com.rbkmoney.fraudo.FraudoPaymentParser;
+import dev.vality.fraudo.FraudoPaymentParser;
 import dev.vality.fraudo.payment.aggregator.CountPaymentAggregator;
 import dev.vality.fraudo.payment.resolver.PaymentGroupResolver;
 import dev.vality.fraudo.payment.resolver.PaymentTimeWindowResolver;

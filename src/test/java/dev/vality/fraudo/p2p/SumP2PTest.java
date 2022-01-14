@@ -1,6 +1,6 @@
 package dev.vality.fraudo.p2p;
 
-import com.rbkmoney.fraudo.FraudoP2PParser;
+import dev.vality.fraudo.FraudoP2PParser;
 import dev.vality.fraudo.model.ResultModel;
 import dev.vality.fraudo.utils.ResultUtils;
 import org.junit.Assert;

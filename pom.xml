@@ -84,7 +84,7 @@
                 <configuration>
                     <arguments>
                         <argument>-package</argument>
-                        <argument>com.rbkmoney.fraudo</argument>
+                        <argument>dev.vality.fraudo</argument>
                     </arguments>
                     <listener>false</listener>
                     <visitor>true</visitor>

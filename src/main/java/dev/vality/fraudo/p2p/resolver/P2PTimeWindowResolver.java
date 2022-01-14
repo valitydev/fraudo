@@ -7,7 +7,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.List;
 
-import static com.rbkmoney.fraudo.FraudoP2PParser.Time_windowContext;
+import static dev.vality.fraudo.FraudoP2PParser.Time_windowContext;
 
 public class P2PTimeWindowResolver implements TimeWindowResolver<Time_windowContext> {
 

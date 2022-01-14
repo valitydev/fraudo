@@ -8,7 +8,7 @@ import dev.vality.fraudo.resolver.FieldResolver;
 import dev.vality.fraudo.utils.TextUtil;
 import lombok.RequiredArgsConstructor;
 
-import static com.rbkmoney.fraudo.FraudoP2PParser.CountContext;
+import static dev.vality.fraudo.FraudoP2PParser.CountContext;
 
 @RequiredArgsConstructor
 public class CountP2PVisitorImpl<T, U> implements CountP2PVisitor<T> {

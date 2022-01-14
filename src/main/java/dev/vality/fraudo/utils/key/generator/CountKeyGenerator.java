@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.function.Function;
 
-import static com.rbkmoney.fraudo.FraudoPaymentParser.*;
+import static dev.vality.fraudo.FraudoPaymentParser.*;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CountKeyGenerator {

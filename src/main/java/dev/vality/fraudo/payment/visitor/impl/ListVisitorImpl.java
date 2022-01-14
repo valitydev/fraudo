@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 
-import static com.rbkmoney.fraudo.FraudoPaymentParser.*;
+import static dev.vality.fraudo.FraudoPaymentParser.*;
 
 @RequiredArgsConstructor
 public class ListVisitorImpl<T, U> implements ListVisitor<T> {

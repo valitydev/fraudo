@@ -1,6 +1,6 @@
 package dev.vality.fraudo.converter;
 
-import com.rbkmoney.fraudo.FraudoPaymentParser;
+import dev.vality.fraudo.FraudoPaymentParser;
 import dev.vality.fraudo.model.TrustCondition;
 import lombok.RequiredArgsConstructor;
 import org.antlr.v4.runtime.tree.TerminalNode;

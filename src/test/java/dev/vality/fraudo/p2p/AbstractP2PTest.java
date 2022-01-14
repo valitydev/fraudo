@@ -39,16 +39,16 @@ public class AbstractP2PTest {
 
 
     ResultModel parseAndVisit(InputStream resourceAsStream) throws IOException {
-        com.rbkmoney.fraudo.FraudoP2PParser.ParseContext parse = getParseContext(resourceAsStream);
+        dev.vality.fraudo.FraudoP2PParser.ParseContext parse = getParseContext(resourceAsStream);
         return invokeParse(parse);
     }
 
-    ResultModel invokeParse(com.rbkmoney.fraudo.FraudoP2PParser.ParseContext parse) {
+    ResultModel invokeParse(dev.vality.fraudo.FraudoP2PParser.ParseContext parse) {
         P2PModel model = new P2PModel();
         return invoke(parse, model);
     }
 
-    ResultModel invoke(com.rbkmoney.fraudo.FraudoP2PParser.ParseContext parse, P2PModel model) {
+    ResultModel invoke(dev.vality.fraudo.FraudoP2PParser.ParseContext parse, P2PModel model) {
         return new P2PFraudVisitorFactory()
                 .createVisitor(
                         countAggregator,
@@ -62,9 +62,11 @@ public class AbstractP2PTest {
                 .visit(parse, model);
     }
 
-    com.rbkmoney.fraudo.FraudoP2PParser.ParseContext getParseContext(InputStream resourceAsStream) throws IOException {
-        com.rbkmoney.fraudo.FraudoP2PLexer lexer = new com.rbkmoney.fraudo.FraudoP2PLexer(new ANTLRInputStream(resourceAsStream));
-        com.rbkmoney.fraudo.FraudoP2PParser parser = new com.rbkmoney.fraudo.FraudoP2PParser(new CommonTokenStream(lexer));
+    dev.vality.fraudo.FraudoP2PParser.ParseContext getParseContext(InputStream resourceAsStream) throws IOException {
+        dev.vality.fraudo.FraudoP2PLexer lexer =
+                new dev.vality.fraudo.FraudoP2PLexer(new ANTLRInputStream(resourceAsStream));
+        dev.vality.fraudo.FraudoP2PParser parser =
+                new dev.vality.fraudo.FraudoP2PParser(new CommonTokenStream(lexer));
 
         return parser.parse();
     }

@@ -1,8 +1,7 @@
 package dev.vality.fraudo.p2p.visitor.impl;
 
-import com.rbkmoney.fraudo.FraudoP2PBaseVisitor;
-import com.rbkmoney.fraudo.FraudoP2PParser.*;
-import com.rbkmoney.fraudo.p2p.generator.*;
+import dev.vality.fraudo.FraudoP2PBaseVisitor;
+import dev.vality.fraudo.FraudoP2PParser.*;
 import dev.vality.fraudo.constant.ResultStatus;
 import dev.vality.fraudo.exception.NotImplementedOperatorException;
 import dev.vality.fraudo.exception.NotValidContextException;
@@ -29,7 +28,8 @@ import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
-public class FirstFindP2PVisitorImpl<T extends BaseModel, U> extends FraudoP2PBaseVisitor<Object> implements TemplateVisitor<T, ResultModel> {
+public class FirstFindP2PVisitorImpl<T extends BaseModel, U> extends FraudoP2PBaseVisitor<Object>
+        implements TemplateVisitor<T, ResultModel> {
 
     private ThreadLocal<Map<String, Object>> localFuncCache = ThreadLocal.withInitial(HashMap::new);
     private ThreadLocal<T> threadLocalModel = new ThreadLocal<>();

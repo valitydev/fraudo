@@ -10,7 +10,7 @@ import dev.vality.fraudo.resolver.FieldResolver;
 import dev.vality.fraudo.utils.TextUtil;
 import lombok.RequiredArgsConstructor;
 
-import static com.rbkmoney.fraudo.FraudoP2PParser.*;
+import static dev.vality.fraudo.FraudoP2PParser.*;
 
 @RequiredArgsConstructor
 public class CustomP2PFuncVisitorImpl<T, U> implements CustomP2PFuncVisitor<T> {

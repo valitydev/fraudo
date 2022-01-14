@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.function.Function;
 
-import static com.rbkmoney.fraudo.FraudoPaymentParser.UniqueContext;
+import static dev.vality.fraudo.FraudoPaymentParser.UniqueContext;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UniqueKeyGenerator {

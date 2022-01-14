@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 
-import static com.rbkmoney.fraudo.FraudoP2PParser.*;
+import static dev.vality.fraudo.FraudoP2PParser.*;
 
 @RequiredArgsConstructor
 public class ListP2PVisitorImpl<T, U> implements ListP2PVisitor<T> {

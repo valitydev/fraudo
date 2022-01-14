@@ -87,7 +87,7 @@ public class IsTrustedTest extends AbstractPaymentTest {
     @SneakyThrows
     private void testIsTrusted(String testCaseFilePath) {
         InputStream resourceAsStream = IsTrustedTest.class.getResourceAsStream(testCaseFilePath);
-        com.rbkmoney.fraudo.FraudoPaymentParser.ParseContext parseContext = getParseContext(resourceAsStream);
+        dev.vality.fraudo.FraudoPaymentParser.ParseContext parseContext = getParseContext(resourceAsStream);
         PaymentModel model = new PaymentModel();
         ResultModel result = invoke(parseContext, model);
         assertEquals(ResultStatus.ACCEPT, ResultUtils.findFirstNotNotifyStatus(result).get().getResultStatus());

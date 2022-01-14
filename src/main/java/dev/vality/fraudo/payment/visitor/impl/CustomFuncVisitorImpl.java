@@ -11,7 +11,7 @@ import dev.vality.fraudo.resolver.FieldResolver;
 import dev.vality.fraudo.utils.TextUtil;
 import lombok.RequiredArgsConstructor;
 
-import static com.rbkmoney.fraudo.FraudoPaymentParser.*;
+import static dev.vality.fraudo.FraudoPaymentParser.*;
 
 @RequiredArgsConstructor
 public class CustomFuncVisitorImpl<T, U> implements CustomFuncVisitor<T> {

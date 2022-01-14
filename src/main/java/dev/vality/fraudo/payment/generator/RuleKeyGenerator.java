@@ -1,6 +1,6 @@
 package dev.vality.fraudo.payment.generator;
 
-import com.rbkmoney.fraudo.FraudoPaymentParser;
+import dev.vality.fraudo.FraudoPaymentParser;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.rbkmoney.fraudo.FraudoP2PParser.Group_byContext;
+import static dev.vality.fraudo.FraudoP2PParser.Group_byContext;
 
 @RequiredArgsConstructor
 public class P2PGroupResolver<T, U> implements GroupFieldsResolver<Group_byContext, U> {

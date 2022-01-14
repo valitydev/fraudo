@@ -8,8 +8,8 @@ import dev.vality.fraudo.resolver.TimeWindowResolver;
 import dev.vality.fraudo.utils.TextUtil;
 import lombok.RequiredArgsConstructor;
 
-import static com.rbkmoney.fraudo.FraudoP2PParser.SumContext;
-import static com.rbkmoney.fraudo.FraudoP2PParser.Time_windowContext;
+import static dev.vality.fraudo.FraudoP2PParser.SumContext;
+import static dev.vality.fraudo.FraudoP2PParser.Time_windowContext;
 
 @RequiredArgsConstructor
 public class SumP2PVisitorImpl<T, U> implements SumP2PVisitor<T> {

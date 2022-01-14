@@ -1,6 +1,6 @@
 package dev.vality.fraudo.p2p.visitor;
 
-import com.rbkmoney.fraudo.FraudoP2PParser;
+import dev.vality.fraudo.FraudoP2PParser;
 
 public interface CountP2PVisitor<T> {
 
