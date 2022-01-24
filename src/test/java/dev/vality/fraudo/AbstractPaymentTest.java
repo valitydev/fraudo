@@ -5,6 +5,7 @@ import dev.vality.fraudo.aggregator.UniqueValueAggregator;
 import dev.vality.fraudo.dto.AggregatorDto;
 import dev.vality.fraudo.dto.FinderDto;
 import dev.vality.fraudo.dto.ResolverDto;
+import dev.vality.fraudo.dto.VisitorDto;
 import dev.vality.fraudo.finder.InListFinder;
 import dev.vality.fraudo.model.ResultModel;
 import dev.vality.fraudo.payment.aggregator.CountPaymentAggregator;
@@ -22,8 +23,8 @@ import dev.vality.fraudo.test.model.PaymentModel;
 import dev.vality.fraudo.test.payment.PaymentModelFieldResolver;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.junit.Before;
 import org.mockito.Mock;
+import dev.vality.fraudo.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,26 +51,6 @@ public class AbstractPaymentTest {
     private final FieldResolver<PaymentModel, PaymentCheckedField> fieldResolver = new PaymentModelFieldResolver();
     private final PaymentGroupResolver<PaymentModel, PaymentCheckedField> paymentGroupResolver =
             new PaymentGroupResolver<>(fieldResolver);
-    private AggregatorDto<PaymentModel, PaymentCheckedField> aggregatorDto;
-    private ResolverDto<PaymentModel, PaymentCheckedField> resolverDto;
-    private FinderDto<PaymentModel, PaymentCheckedField> finderDto;
-
-    @Before
-    public void setUp() {
-        aggregatorDto = new AggregatorDto<>();
-        aggregatorDto.setSumPaymentAggregator(sumPaymentAggregator);
-        aggregatorDto.setUniqueValueAggregator(uniqueValueAggregator);
-        aggregatorDto.setCountPaymentAggregator(countPaymentAggregator);
-        resolverDto = new ResolverDto<>();
-        resolverDto.setCountryResolver(countryResolver);
-        resolverDto.setCustomerTypeResolver(customerTypeResolver);
-        resolverDto.setPaymentGroupResolver(paymentGroupResolver);
-        resolverDto.setFieldPairResolver(fieldResolver);
-        resolverDto.setTimeWindowResolver(timeWindowResolver);
-        resolverDto.setPaymentTypeResolver(paymentModelPaymentTypeResolver);
-        finderDto = new FinderDto<>();
-        finderDto.setListFinder(inListFinder);
-    }
 
     ResultModel parseAndVisit(InputStream resourceAsStream) throws IOException {
         ParseContext parse = getParseContext(resourceAsStream);
@@ -82,15 +63,38 @@ public class AbstractPaymentTest {
     }
 
     ResultModel invoke(ParseContext parse, PaymentModel model) {
+        VisitorDto<PaymentModel, PaymentCheckedField> visitorDto = buildVisitorDto();
         return new FraudVisitorFactoryImpl()
-                .createVisitor(aggregatorDto, resolverDto, finderDto)
+                .createVisitor(visitorDto)
                 .visit(parse, model);
     }
 
     ResultModel invokeFullVisitor(ParseContext parse, PaymentModel model) {
+        VisitorDto<PaymentModel, PaymentCheckedField> visitorDto = buildVisitorDto();
         return new FullVisitorFactoryImpl()
-                .createVisitor(aggregatorDto, resolverDto, finderDto)
+                .createVisitor(visitorDto)
                 .visit(parse, model);
+    }
+
+    private VisitorDto<PaymentModel, PaymentCheckedField> buildVisitorDto() {
+        AggregatorDto<PaymentModel, PaymentCheckedField> aggregatorDto = new AggregatorDto<>();
+        aggregatorDto.setSumPaymentAggregator(sumPaymentAggregator);
+        aggregatorDto.setUniqueValueAggregator(uniqueValueAggregator);
+        aggregatorDto.setCountPaymentAggregator(countPaymentAggregator);
+        ResolverDto<PaymentModel, PaymentCheckedField> resolverDto = new ResolverDto<>();
+        resolverDto.setCountryResolver(countryResolver);
+        resolverDto.setCustomerTypeResolver(customerTypeResolver);
+        resolverDto.setPaymentGroupResolver(paymentGroupResolver);
+        resolverDto.setFieldPairResolver(fieldResolver);
+        resolverDto.setTimeWindowResolver(timeWindowResolver);
+        resolverDto.setPaymentTypeResolver(paymentModelPaymentTypeResolver);
+        FinderDto<PaymentModel, PaymentCheckedField> finderDto = new FinderDto<>();
+        finderDto.setListFinder(inListFinder);
+        VisitorDto<PaymentModel, PaymentCheckedField> visitorDto = new VisitorDto<>();
+        visitorDto.setAggregatorDto(aggregatorDto);
+        visitorDto.setResolverDto(resolverDto);
+        visitorDto.setFinderDto(finderDto);
+        return visitorDto;
     }
 
     ParseContext getParseContext(InputStream resourceAsStream) throws IOException {

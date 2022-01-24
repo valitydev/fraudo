@@ -4,6 +4,7 @@ import dev.vality.fraudo.converter.TrustConditionConverter;
 import dev.vality.fraudo.dto.AggregatorDto;
 import dev.vality.fraudo.dto.FinderDto;
 import dev.vality.fraudo.dto.ResolverDto;
+import dev.vality.fraudo.dto.VisitorDto;
 import dev.vality.fraudo.model.BaseModel;
 import dev.vality.fraudo.payment.visitor.*;
 import dev.vality.fraudo.payment.visitor.impl.*;
@@ -11,9 +12,10 @@ import dev.vality.fraudo.payment.visitor.impl.*;
 public class FraudVisitorFactoryImpl implements FraudVisitorFactory {
 
     @Override
-    public <T extends BaseModel, U> FirstFindVisitorImpl<T, U> createVisitor(AggregatorDto<T, U> aggregatorDto,
-                                                                             ResolverDto<T, U> resolverDto,
-                                                                             FinderDto<T, U> finderDto) {
+    public <T extends BaseModel, U> FirstFindVisitorImpl<T, U> createVisitor(VisitorDto<T, U> visitorDto) {
+        AggregatorDto<T, U> aggregatorDto = visitorDto.getAggregatorDto();
+        ResolverDto<T, U> resolverDto = visitorDto.getResolverDto();
+        FinderDto<T, U> finderDto = visitorDto.getFinderDto();
         CountVisitor<T> countVisitor = new CountVisitorImpl<>(aggregatorDto.getCountPaymentAggregator(),
                 resolverDto.getFieldPairResolver(),
                 resolverDto.getPaymentGroupResolver(),
@@ -30,8 +32,7 @@ public class FraudVisitorFactoryImpl implements FraudVisitorFactory {
                 resolverDto.getFieldPairResolver(),
                 resolverDto.getPaymentGroupResolver(),
                 resolverDto.getTimeWindowResolver(),
-                resolverDto.getPaymentTypeResolver()
-        );
+                resolverDto.getPaymentTypeResolver());
         IsTrustedFuncVisitor<T> isTrustedFuncVisitor =
                 new IsTrustedFuncVisitorImpl<>(resolverDto.getCustomerTypeResolver());
         TrustConditionConverter trustConditionConverter = new TrustConditionConverter();
