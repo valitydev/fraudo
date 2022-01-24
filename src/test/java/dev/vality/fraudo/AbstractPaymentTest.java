@@ -2,6 +2,9 @@ package dev.vality.fraudo;
 
 import dev.vality.fraudo.FraudoPaymentParser.ParseContext;
 import dev.vality.fraudo.aggregator.UniqueValueAggregator;
+import dev.vality.fraudo.dto.AggregatorDto;
+import dev.vality.fraudo.dto.FinderDto;
+import dev.vality.fraudo.dto.ResolverDto;
 import dev.vality.fraudo.finder.InListFinder;
 import dev.vality.fraudo.model.ResultModel;
 import dev.vality.fraudo.payment.aggregator.CountPaymentAggregator;
@@ -19,6 +22,7 @@ import dev.vality.fraudo.test.model.PaymentModel;
 import dev.vality.fraudo.test.payment.PaymentModelFieldResolver;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.junit.Before;
 import org.mockito.Mock;
 
 import java.io.IOException;
@@ -43,9 +47,29 @@ public class AbstractPaymentTest {
     @Mock
     CustomerTypeResolver<PaymentModel> customerTypeResolver;
 
-    private FieldResolver<PaymentModel, PaymentCheckedField> fieldResolver = new PaymentModelFieldResolver();
-    private PaymentGroupResolver<PaymentModel, PaymentCheckedField> paymentGroupResolver =
+    private final FieldResolver<PaymentModel, PaymentCheckedField> fieldResolver = new PaymentModelFieldResolver();
+    private final PaymentGroupResolver<PaymentModel, PaymentCheckedField> paymentGroupResolver =
             new PaymentGroupResolver<>(fieldResolver);
+    private AggregatorDto<PaymentModel, PaymentCheckedField> aggregatorDto;
+    private ResolverDto<PaymentModel, PaymentCheckedField> resolverDto;
+    private FinderDto<PaymentModel, PaymentCheckedField> finderDto;
+
+    @Before
+    public void setUp() {
+        aggregatorDto = new AggregatorDto<>();
+        aggregatorDto.setSumPaymentAggregator(sumPaymentAggregator);
+        aggregatorDto.setUniqueValueAggregator(uniqueValueAggregator);
+        aggregatorDto.setCountPaymentAggregator(countPaymentAggregator);
+        resolverDto = new ResolverDto<>();
+        resolverDto.setCountryResolver(countryResolver);
+        resolverDto.setCustomerTypeResolver(customerTypeResolver);
+        resolverDto.setPaymentGroupResolver(paymentGroupResolver);
+        resolverDto.setFieldPairResolver(fieldResolver);
+        resolverDto.setTimeWindowResolver(timeWindowResolver);
+        resolverDto.setPaymentTypeResolver(paymentModelPaymentTypeResolver);
+        finderDto = new FinderDto<>();
+        finderDto.setListFinder(inListFinder);
+    }
 
     ResultModel parseAndVisit(InputStream resourceAsStream) throws IOException {
         ParseContext parse = getParseContext(resourceAsStream);
@@ -59,41 +83,21 @@ public class AbstractPaymentTest {
 
     ResultModel invoke(ParseContext parse, PaymentModel model) {
         return new FraudVisitorFactoryImpl()
-                .createVisitor(
-                        countPaymentAggregator,
-                        sumPaymentAggregator,
-                        uniqueValueAggregator,
-                        countryResolver,
-                        inListFinder,
-                        fieldResolver,
-                        paymentGroupResolver,
-                        timeWindowResolver,
-                        paymentModelPaymentTypeResolver,
-                        customerTypeResolver)
+                .createVisitor(aggregatorDto, resolverDto, finderDto)
                 .visit(parse, model);
     }
 
     ResultModel invokeFullVisitor(ParseContext parse, PaymentModel model) {
         return new FullVisitorFactoryImpl()
-                .createVisitor(
-                        countPaymentAggregator,
-                        sumPaymentAggregator,
-                        uniqueValueAggregator,
-                        countryResolver,
-                        inListFinder,
-                        fieldResolver,
-                        paymentGroupResolver,
-                        timeWindowResolver,
-                        paymentModelPaymentTypeResolver,
-                        customerTypeResolver)
+                .createVisitor(aggregatorDto, resolverDto, finderDto)
                 .visit(parse, model);
     }
 
     ParseContext getParseContext(InputStream resourceAsStream) throws IOException {
-        dev.vality.fraudo.FraudoPaymentLexer lexer =
-                new dev.vality.fraudo.FraudoPaymentLexer(new ANTLRInputStream(resourceAsStream));
-        dev.vality.fraudo.FraudoPaymentParser parser =
-                new dev.vality.fraudo.FraudoPaymentParser(new CommonTokenStream(lexer));
+        FraudoPaymentLexer lexer =
+                new FraudoPaymentLexer(new ANTLRInputStream(resourceAsStream));
+        FraudoPaymentParser parser =
+                new FraudoPaymentParser(new CommonTokenStream(lexer));
         return parser.parse();
     }
 

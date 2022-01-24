@@ -1,5 +1,6 @@
 package dev.vality.fraudo;
 
+import dev.vality.fraudo.FraudoPaymentParser.ParseContext;
 import dev.vality.fraudo.constant.ResultStatus;
 import dev.vality.fraudo.model.ResultModel;
 import dev.vality.fraudo.model.TrustCondition;
@@ -87,7 +88,7 @@ public class IsTrustedTest extends AbstractPaymentTest {
     @SneakyThrows
     private void testIsTrusted(String testCaseFilePath) {
         InputStream resourceAsStream = IsTrustedTest.class.getResourceAsStream(testCaseFilePath);
-        dev.vality.fraudo.FraudoPaymentParser.ParseContext parseContext = getParseContext(resourceAsStream);
+        ParseContext parseContext = getParseContext(resourceAsStream);
         PaymentModel model = new PaymentModel();
         ResultModel result = invoke(parseContext, model);
         assertEquals(ResultStatus.ACCEPT, ResultUtils.findFirstNotNotifyStatus(result).get().getResultStatus());

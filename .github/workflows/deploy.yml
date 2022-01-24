@@ -19,10 +19,6 @@ jobs:
 
       - name: Checkout GitHub Action JDK Build Repo
         uses: actions/checkout@v2
-        with:
-          repository: valitydev/action-jdk-build
-          ref: v1.0.18
-          path: .github/actions/action-jdk-build
 
       - name: Checkout GitHub Action Deploy Docker Repo
         uses: actions/checkout@v2
@@ -32,10 +28,7 @@ jobs:
           path: .github/actions/action-deploy-docker
 
       - name: Run Build Java
-        uses: ./.github/actions/action-jdk-build
-        with:
-          github-pat: '${{ secrets.GH_PACKAGES_RO_PAT }}'
-          github-user: 'strug'
+        uses: valitydev/action-jdk-build@v0.0.7
 
       - name: Deploy image
         uses: ./.github/actions/action-deploy-docker
