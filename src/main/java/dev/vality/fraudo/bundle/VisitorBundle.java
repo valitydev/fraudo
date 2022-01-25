@@ -1,10 +1,10 @@
 package dev.vality.fraudo.bundle;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@Builder
+@AllArgsConstructor
 public class VisitorBundle<T, U> {
 
     private AggregatorBundle<T, U> aggregatorBundle;

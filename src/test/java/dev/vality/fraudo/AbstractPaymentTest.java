@@ -76,31 +76,19 @@ public class AbstractPaymentTest {
     }
 
     private VisitorBundle<PaymentModel, PaymentCheckedField> buildVisitorDto() {
-        var aggregatorBundle = AggregatorBundle.<PaymentModel, PaymentCheckedField>
-                        builder()
-                .sumPaymentAggregator(sumPaymentAggregator)
-                .countPaymentAggregator(countPaymentAggregator)
-                .uniqueValueAggregator(uniqueValueAggregator)
-                .build();
-        var resolverBundle = ResolverBundle.<PaymentModel, PaymentCheckedField>
-                        builder()
-                .countryResolver(countryResolver)
-                .customerTypeResolver(customerTypeResolver)
-                .paymentGroupResolver(paymentGroupResolver)
-                .fieldPairResolver(fieldResolver)
-                .timeWindowResolver(timeWindowResolver)
-                .paymentTypeResolver(paymentModelPaymentTypeResolver)
-                .build();
-        var finderBundle = FinderBundle.<PaymentModel, PaymentCheckedField>
-                        builder()
-                .listFinder(inListFinder)
-                .build();
-        return VisitorBundle.<PaymentModel, PaymentCheckedField>
-                        builder()
-                .aggregatorBundle(aggregatorBundle)
-                .resolverBundle(resolverBundle)
-                .finderBundle(finderBundle)
-                .build();
+        var aggregatorBundle = new AggregatorBundle<>(
+                countPaymentAggregator,
+                sumPaymentAggregator,
+                uniqueValueAggregator);
+        var resolverBundle = new ResolverBundle<>(
+                countryResolver,
+                fieldResolver,
+                paymentGroupResolver,
+                timeWindowResolver,
+                paymentModelPaymentTypeResolver,
+                customerTypeResolver);
+        var finderBundle = new FinderBundle<>(inListFinder);
+        return new VisitorBundle<>(aggregatorBundle, resolverBundle, finderBundle);
     }
 
     ParseContext getParseContext(InputStream resourceAsStream) throws IOException {

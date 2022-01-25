@@ -6,11 +6,11 @@ import dev.vality.fraudo.payment.resolver.PaymentTimeWindowResolver;
 import dev.vality.fraudo.payment.resolver.PaymentTypeResolver;
 import dev.vality.fraudo.resolver.CountryResolver;
 import dev.vality.fraudo.resolver.FieldResolver;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@Builder
+@AllArgsConstructor
 public class ResolverBundle<T, U> {
 
     private CountryResolver<U> countryResolver;
