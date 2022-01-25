@@ -15,7 +15,7 @@
 
     <name>Fraudo</name>
     <description>Language for describing antifraud patterns</description>
-    <url>https://github.com/ValityDev/fraudo</url>
+    <url>https://github.com/valitydev/fraudo</url>
 
     <developers>
         <developer>
@@ -26,9 +26,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/ValityDev/fraudo.git</connection>
-        <developerConnection>scm:git:ssh://github.com/ValityDev/fraudo.git</developerConnection>
-        <url>https://github.com/ValityDev/fraudo/tree/master</url>
+        <connection>scm:git:git://github.com/valitydev/fraudo.git</connection>
+        <developerConnection>scm:git:ssh://github.com/valitydev/fraudo.git</developerConnection>
+        <url>https://github.com/valitydev/fraudo/tree/master</url>
     </scm>
 
     <properties>

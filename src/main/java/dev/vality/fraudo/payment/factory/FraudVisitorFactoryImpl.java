@@ -1,10 +1,10 @@
 package dev.vality.fraudo.payment.factory;
 
 import dev.vality.fraudo.converter.TrustConditionConverter;
-import dev.vality.fraudo.dto.AggregatorDto;
-import dev.vality.fraudo.dto.FinderDto;
-import dev.vality.fraudo.dto.ResolverDto;
-import dev.vality.fraudo.dto.VisitorDto;
+import dev.vality.fraudo.dto.AggregatorBundle;
+import dev.vality.fraudo.dto.FinderBundle;
+import dev.vality.fraudo.dto.ResolverBundle;
+import dev.vality.fraudo.dto.VisitorBundle;
 import dev.vality.fraudo.model.BaseModel;
 import dev.vality.fraudo.payment.visitor.*;
 import dev.vality.fraudo.payment.visitor.impl.*;
@@ -12,29 +12,29 @@ import dev.vality.fraudo.payment.visitor.impl.*;
 public class FraudVisitorFactoryImpl implements FraudVisitorFactory {
 
     @Override
-    public <T extends BaseModel, U> FirstFindVisitorImpl<T, U> createVisitor(VisitorDto<T, U> visitorDto) {
-        AggregatorDto<T, U> aggregatorDto = visitorDto.getAggregatorDto();
-        ResolverDto<T, U> resolverDto = visitorDto.getResolverDto();
-        FinderDto<T, U> finderDto = visitorDto.getFinderDto();
-        CountVisitor<T> countVisitor = new CountVisitorImpl<>(aggregatorDto.getCountPaymentAggregator(),
-                resolverDto.getFieldPairResolver(),
-                resolverDto.getPaymentGroupResolver(),
-                resolverDto.getTimeWindowResolver());
-        SumVisitor<T> sumVisitor = new SumVisitorImpl<>(aggregatorDto.getSumPaymentAggregator(),
-                resolverDto.getFieldPairResolver(),
-                resolverDto.getPaymentGroupResolver(),
-                resolverDto.getTimeWindowResolver());
-        ListVisitor<T> listVisitor = new ListVisitorImpl<>(finderDto.getListFinder(),
-                resolverDto.getFieldPairResolver());
+    public <T extends BaseModel, U> FirstFindVisitorImpl<T, U> createVisitor(VisitorBundle<T, U> visitorBundle) {
+        AggregatorBundle<T, U> aggregatorBundle = visitorBundle.getAggregatorBundle();
+        ResolverBundle<T, U> resolverBundle = visitorBundle.getResolverBundle();
+        FinderBundle<T, U> finderBundle = visitorBundle.getFinderBundle();
+        CountVisitor<T> countVisitor = new CountVisitorImpl<>(aggregatorBundle.getCountPaymentAggregator(),
+                resolverBundle.getFieldPairResolver(),
+                resolverBundle.getPaymentGroupResolver(),
+                resolverBundle.getTimeWindowResolver());
+        SumVisitor<T> sumVisitor = new SumVisitorImpl<>(aggregatorBundle.getSumPaymentAggregator(),
+                resolverBundle.getFieldPairResolver(),
+                resolverBundle.getPaymentGroupResolver(),
+                resolverBundle.getTimeWindowResolver());
+        ListVisitor<T> listVisitor = new ListVisitorImpl<>(finderBundle.getListFinder(),
+                resolverBundle.getFieldPairResolver());
         CustomFuncVisitor<T> customFuncVisitor = new CustomFuncVisitorImpl<>(
-                aggregatorDto.getUniqueValueAggregator(),
-                resolverDto.getCountryResolver(),
-                resolverDto.getFieldPairResolver(),
-                resolverDto.getPaymentGroupResolver(),
-                resolverDto.getTimeWindowResolver(),
-                resolverDto.getPaymentTypeResolver());
+                aggregatorBundle.getUniqueValueAggregator(),
+                resolverBundle.getCountryResolver(),
+                resolverBundle.getFieldPairResolver(),
+                resolverBundle.getPaymentGroupResolver(),
+                resolverBundle.getTimeWindowResolver(),
+                resolverBundle.getPaymentTypeResolver());
         IsTrustedFuncVisitor<T> isTrustedFuncVisitor =
-                new IsTrustedFuncVisitorImpl<>(resolverDto.getCustomerTypeResolver());
+                new IsTrustedFuncVisitorImpl<>(resolverBundle.getCustomerTypeResolver());
         TrustConditionConverter trustConditionConverter = new TrustConditionConverter();
 
         return new FirstFindVisitorImpl<>(
@@ -43,7 +43,7 @@ public class FraudVisitorFactoryImpl implements FraudVisitorFactory {
                 listVisitor,
                 customFuncVisitor,
                 isTrustedFuncVisitor,
-                resolverDto.getFieldPairResolver(),
+                resolverBundle.getFieldPairResolver(),
                 trustConditionConverter
         );
     }

@@ -1,10 +1,12 @@
 package dev.vality.fraudo.dto;
 
 import dev.vality.fraudo.finder.InListFinder;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
-public class FinderDto<T, U> {
+@Builder
+public class FinderBundle<T, U> {
 
     private InListFinder<T, U> listFinder;
 
