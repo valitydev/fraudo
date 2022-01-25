@@ -5,31 +5,30 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.rbkmoney</groupId>
-        <artifactId>parent</artifactId>
-        <version>1.0.5</version>
+        <groupId>dev.vality</groupId>
+        <artifactId>library-parent-pom</artifactId>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>fraudo</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
 
     <name>Fraudo</name>
     <description>Language for describing antifraud patterns</description>
-    <url>https://github.com/rbkmoney/fraudo</url>
+    <url>https://github.com/valitydev/fraudo</url>
 
     <developers>
         <developer>
             <name>Konstantin Struzhkin</name>
-            <email>k.struzhkin@rbk.money</email>
-            <organization>RBK.money</organization>
-            <organizationUrl>https://rbk.money</organizationUrl>
+            <organization>Vality.Dev</organization>
+            <organizationUrl>https://vality.dev</organizationUrl>
         </developer>
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/rbkmoney/fraudo.git</connection>
-        <developerConnection>scm:git:ssh://github.com/rbkmoney/fraudo.git</developerConnection>
-        <url>https://github.com/rbkmoney/fraudo/tree/master</url>
+        <connection>scm:git:git://github.com/valitydev/fraudo.git</connection>
+        <developerConnection>scm:git:ssh://github.com/valitydev/fraudo.git</developerConnection>
+        <url>https://github.com/valitydev/fraudo/tree/master</url>
     </scm>
 
     <properties>
@@ -85,7 +84,7 @@
                 <configuration>
                     <arguments>
                         <argument>-package</argument>
-                        <argument>com.rbkmoney.fraudo</argument>
+                        <argument>dev.vality.fraudo</argument>
                     </arguments>
                     <listener>false</listener>
                     <visitor>true</visitor>
