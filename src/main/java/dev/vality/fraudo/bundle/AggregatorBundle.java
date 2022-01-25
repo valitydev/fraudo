@@ -1,4 +1,4 @@
-package dev.vality.fraudo.dto;
+package dev.vality.fraudo.bundle;
 
 import dev.vality.fraudo.aggregator.UniqueValueAggregator;
 import dev.vality.fraudo.payment.aggregator.CountPaymentAggregator;

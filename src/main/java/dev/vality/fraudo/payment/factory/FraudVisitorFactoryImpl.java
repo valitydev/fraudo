@@ -1,10 +1,10 @@
 package dev.vality.fraudo.payment.factory;
 
 import dev.vality.fraudo.converter.TrustConditionConverter;
-import dev.vality.fraudo.dto.AggregatorBundle;
-import dev.vality.fraudo.dto.FinderBundle;
-import dev.vality.fraudo.dto.ResolverBundle;
-import dev.vality.fraudo.dto.VisitorBundle;
+import dev.vality.fraudo.bundle.AggregatorBundle;
+import dev.vality.fraudo.bundle.FinderBundle;
+import dev.vality.fraudo.bundle.ResolverBundle;
+import dev.vality.fraudo.bundle.VisitorBundle;
 import dev.vality.fraudo.model.BaseModel;
 import dev.vality.fraudo.payment.visitor.*;
 import dev.vality.fraudo.payment.visitor.impl.*;

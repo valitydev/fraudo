@@ -2,10 +2,10 @@ package dev.vality.fraudo;
 
 import dev.vality.fraudo.FraudoPaymentParser.ParseContext;
 import dev.vality.fraudo.aggregator.UniqueValueAggregator;
-import dev.vality.fraudo.dto.AggregatorBundle;
-import dev.vality.fraudo.dto.FinderBundle;
-import dev.vality.fraudo.dto.ResolverBundle;
-import dev.vality.fraudo.dto.VisitorBundle;
+import dev.vality.fraudo.bundle.AggregatorBundle;
+import dev.vality.fraudo.bundle.FinderBundle;
+import dev.vality.fraudo.bundle.ResolverBundle;
+import dev.vality.fraudo.bundle.VisitorBundle;
 import dev.vality.fraudo.finder.InListFinder;
 import dev.vality.fraudo.model.ResultModel;
 import dev.vality.fraudo.payment.aggregator.CountPaymentAggregator;

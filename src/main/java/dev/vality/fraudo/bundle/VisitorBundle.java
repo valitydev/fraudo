@@ -1,4 +1,4 @@
-package dev.vality.fraudo.dto;
+package dev.vality.fraudo.bundle;
 
 import lombok.Builder;
 import lombok.Data;

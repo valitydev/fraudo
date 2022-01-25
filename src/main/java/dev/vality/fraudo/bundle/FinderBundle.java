@@ -1,4 +1,4 @@
-package dev.vality.fraudo.dto;
+package dev.vality.fraudo.bundle;
 
 import dev.vality.fraudo.finder.InListFinder;
 import lombok.Builder;
