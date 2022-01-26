@@ -1,4 +1,4 @@
-name: Deploy Docker Image
+name: Maven Deploy Artifact
 
 on:
   push:
@@ -6,34 +6,11 @@ on:
       - 'master'
       - 'main'
 
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
-
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2
-
-      - name: Checkout GitHub Action JDK Build Repo
-        uses: actions/checkout@v2
-
-      - name: Checkout GitHub Action Deploy Docker Repo
-        uses: actions/checkout@v2
-        with:
-          repository: valitydev/action-deploy-docker
-          ref: v1.0.16
-          path: .github/actions/action-deploy-docker
-
-      - name: Run Build Java
-        uses: valitydev/action-jdk-build@v0.0.7
-
-      - name: Deploy image
-        uses: ./.github/actions/action-deploy-docker
-        with:
-          registry-username: ${{ github.actor }}
-          registry-access-token: ${{ secrets.GITHUB_TOKEN }}
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+  deploy:
+    uses: valitydev/base-workflow/.github/workflows/maven-library-deploy.yml@v1.0.1
+    secrets:
+      server-username: ${{ secrets.OSSRH_USERNAME }}
+      server-password: ${{ secrets.OSSRH_TOKEN }}
+      deploy-secret-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+      deploy-secret-key-password: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
