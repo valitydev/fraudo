@@ -6,6 +6,10 @@ on:
       - 'master'
       - 'main'
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
   deploy:
     uses: valitydev/base-workflow/.github/workflows/maven-library-deploy.yml@v1
