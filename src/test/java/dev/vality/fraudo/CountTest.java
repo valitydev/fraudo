@@ -4,26 +4,26 @@ import dev.vality.fraudo.FraudoPaymentParser.ParseContext;
 import dev.vality.fraudo.constant.ResultStatus;
 import dev.vality.fraudo.model.ResultModel;
 import dev.vality.fraudo.utils.ResultUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 
 import java.io.InputStream;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 public class CountTest extends AbstractPaymentTest {
 
-    @Before
+    @BeforeEach
     public void init() {
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    public void countTest() throws Exception {
+    void countTest() throws Exception {
         InputStream resourceAsStream = CountTest.class.getResourceAsStream("/rules/count.frd");
         when(countPaymentAggregator.count(anyObject(), any(), any(), any())).thenReturn(10);
         when(countPaymentAggregator.countError(anyObject(), any(), any(), anyString(), any())).thenReturn(6);
@@ -44,7 +44,7 @@ public class CountTest extends AbstractPaymentTest {
     }
 
     @Test
-    public void countCargeRefundTest() throws Exception {
+    void countCargeRefundTest() throws Exception {
         InputStream resourceAsStream = CountTest.class.getResourceAsStream("/rules/count_chargeback_refund.frd");
         when(countPaymentAggregator.countChargeback(anyObject(), any(), any(), any())).thenReturn(3);
         when(countPaymentAggregator.countRefund(anyObject(), any(), any(), any())).thenReturn(5);
@@ -55,7 +55,7 @@ public class CountTest extends AbstractPaymentTest {
     }
 
     @Test
-    public void countGroupByTest() throws Exception {
+    void countGroupByTest() throws Exception {
         InputStream resourceAsStream = CountTest.class.getResourceAsStream("/rules/countGroupBy.frd");
         when(countPaymentAggregator.count(anyObject(), any(), any(), any())).thenReturn(10);
         ParseContext parseContext = getParseContext(resourceAsStream);
@@ -69,7 +69,7 @@ public class CountTest extends AbstractPaymentTest {
     }
 
     @Test
-    public void countTimeWindowGroupByTest() throws Exception {
+    void countTimeWindowGroupByTest() throws Exception {
         InputStream resourceAsStream = CountTest.class.getResourceAsStream("/rules/countTimeWindowGroupBy.frd");
         when(countPaymentAggregator.count(anyObject(), any(), any(), any())).thenReturn(10);
         ParseContext parseContext = getParseContext(resourceAsStream);
@@ -90,7 +90,7 @@ public class CountTest extends AbstractPaymentTest {
     }
 
     @Test
-    public void countCardTokenTest() throws Exception {
+    void countCardTokenTest() throws Exception {
         InputStream resourceAsStream = CountTest.class.getResourceAsStream("/rules/count_card_token.frd");
         when(countPaymentAggregator.count(anyObject(), any(), any(), any())).thenReturn(10);
         ParseContext parseContext = getParseContext(resourceAsStream);
@@ -101,7 +101,7 @@ public class CountTest extends AbstractPaymentTest {
     }
 
     @Test
-    public void countPhoneTest() throws Exception {
+    void countPhoneTest() throws Exception {
         InputStream resourceAsStream = CountTest.class.getResourceAsStream("/rules/count_phone.frd");
         when(countPaymentAggregator.count(anyObject(), any(), any(), any())).thenReturn(10);
         ParseContext parseContext = getParseContext(resourceAsStream);

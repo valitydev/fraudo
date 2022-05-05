@@ -110,7 +110,18 @@ string_list
  ;
 
 time_window
- : DELIMITER INTEGER | DELIMITER INTEGER DELIMITER INTEGER
+ : DELIMITER INTEGER DELIMITER INTEGER DELIMITER time_unit
+ | DELIMITER INTEGER DELIMITER time_unit
+ | DELIMITER INTEGER DELIMITER INTEGER
+ | DELIMITER INTEGER
+ ;
+
+time_unit
+ : 'minutes'
+ | 'hours'
+ | 'days'
+ | 'weeks'
+ | 'months'
  ;
 
 group_by

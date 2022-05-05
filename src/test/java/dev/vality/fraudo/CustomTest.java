@@ -7,15 +7,13 @@ import dev.vality.fraudo.model.ResultModel;
 import dev.vality.fraudo.test.model.PaymentModel;
 import dev.vality.fraudo.utils.ResultUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 
 import java.io.InputStream;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
@@ -24,13 +22,13 @@ public class CustomTest extends AbstractPaymentTest {
 
     public static final String TEST_GMAIL_RU = "test@gmail.ru";
 
-    @Before
+    @BeforeEach
     public void init() {
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    public void threeDsTest() throws Exception {
+    void threeDsTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/three_ds.frd");
         when(countPaymentAggregator.count(anyObject(), any(), any(), any())).thenReturn(10);
         ResultModel result = parseAndVisit(resourceAsStream);
@@ -38,7 +36,7 @@ public class CustomTest extends AbstractPaymentTest {
     }
 
     @Test
-    public void highRiskTest() throws Exception {
+    void highRiskTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/highRisk.frd");
         when(countPaymentAggregator.count(anyObject(), any(), any(), any())).thenReturn(10);
         ResultModel result = parseAndVisit(resourceAsStream);
@@ -46,7 +44,7 @@ public class CustomTest extends AbstractPaymentTest {
     }
 
     @Test
-    public void notifyTest() throws Exception {
+    void notifyTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/notify.frd");
         ResultModel result = parseAndVisit(resourceAsStream);
         assertFalse(ResultUtils.findFirstNotNotifyStatus(result).isPresent());
@@ -54,7 +52,7 @@ public class CustomTest extends AbstractPaymentTest {
     }
 
     @Test
-    public void declineTest() throws Exception {
+    void declineTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/decline.frd");
         ResultModel result = parseAndVisit(resourceAsStream);
         assertEquals(ResultStatus.DECLINE, ResultUtils.findFirstNotNotifyStatus(result).get().getResultStatus());
@@ -62,37 +60,37 @@ public class CustomTest extends AbstractPaymentTest {
     }
 
     @Test
-    public void declineAndNotifyTest() throws Exception {
+    void declineAndNotifyTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/declineAndNotify.frd");
         ResultModel result = parseAndVisit(resourceAsStream);
         ResultStatus resultStatus = ResultUtils.findFirstNotNotifyStatus(result).get().getResultStatus();
         assertEquals(ResultStatus.DECLINE_AND_NOTIFY, resultStatus);
         assertEquals("test_11", ResultUtils.findFirstNotNotifyStatus(result).get().getRuleChecked());
-        Assert.assertEquals(1, ResultUtils.getNotifications(result).size());
+        assertEquals(1, ResultUtils.getNotifications(result).size());
     }
 
     @Test
-    public void acceptTest() throws Exception {
+    void acceptTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/accept.frd");
         ResultModel result = parseAndVisit(resourceAsStream);
         assertEquals(ResultStatus.ACCEPT, ResultUtils.findFirstNotNotifyStatus(result).get().getResultStatus());
     }
 
     @Test
-    public void ruleIsNotFireTest() throws Exception {
+    void ruleIsNotFireTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/rule_is_not_fire.frd");
         ResultModel result = parseAndVisit(resourceAsStream);
         assertFalse(ResultUtils.findFirstNotNotifyStatus(result).isPresent());
     }
 
-    @Test(expected = UnknownResultException.class)
-    public void notImplOperatorTest() throws Exception {
+    @Test
+    void notImplOperatorTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/unknownResult.frd");
-        parseAndVisit(resourceAsStream);
+        assertThrows(UnknownResultException.class, () -> parseAndVisit(resourceAsStream));
     }
 
     @Test
-    public void inTest() throws Exception {
+    void inTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/in.frd");
         ParseContext parseContext = getParseContext(resourceAsStream);
         PaymentModel model = new PaymentModel();
@@ -102,7 +100,7 @@ public class CustomTest extends AbstractPaymentTest {
     }
 
     @Test
-    public void inCountryTest() throws Exception {
+    void inCountryTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/in_country.frd");
         when(countryResolver.resolveCountry(any(), anyString())).thenReturn("RU");
 
@@ -114,7 +112,7 @@ public class CustomTest extends AbstractPaymentTest {
     }
 
     @Test
-    public void inCurrencyTest() throws Exception {
+    void inCurrencyTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/in_currency.frd");
 
         ParseContext parseContext = getParseContext(resourceAsStream);
@@ -125,7 +123,7 @@ public class CustomTest extends AbstractPaymentTest {
     }
 
     @Test
-    public void tokenProviderTest() throws Exception {
+    void tokenProviderTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/is_mobile.frd");
         when(paymentModelPaymentTypeResolver.isMobile(any())).thenReturn(true);
 
@@ -136,7 +134,7 @@ public class CustomTest extends AbstractPaymentTest {
     }
 
     @Test
-    public void payerTypeTest() throws Exception {
+    void payerTypeTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/is_recurrent.frd");
         when(paymentModelPaymentTypeResolver.isRecurrent(any())).thenReturn(true);
 
@@ -147,7 +145,7 @@ public class CustomTest extends AbstractPaymentTest {
     }
 
     @Test
-    public void amountTest() throws Exception {
+    void amountTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/amount.frd");
         ParseContext parseContext = getParseContext(resourceAsStream);
         PaymentModel model = new PaymentModel();
@@ -162,7 +160,7 @@ public class CustomTest extends AbstractPaymentTest {
     }
 
     @Test
-    public void paymentSystemTest() throws Exception {
+    void paymentSystemTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/paymentSystem.frd");
         ParseContext parseContext = getParseContext(resourceAsStream);
         PaymentModel model = new PaymentModel();
@@ -176,7 +174,7 @@ public class CustomTest extends AbstractPaymentTest {
     }
 
     @Test
-    public void cardCategoryTest() throws Exception {
+    void cardCategoryTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/cardCategory.frd");
         ParseContext parseContext = getParseContext(resourceAsStream);
         PaymentModel model = new PaymentModel();
@@ -190,7 +188,7 @@ public class CustomTest extends AbstractPaymentTest {
     }
 
     @Test
-    public void catchTest() throws Exception {
+    void catchTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/catch.frd");
         when(uniqueValueAggregator.countUniqueValue(any(), any(), any(), any(), any()))
                 .thenThrow(new UnknownResultException("as"));
@@ -200,7 +198,7 @@ public class CustomTest extends AbstractPaymentTest {
     }
 
     @Test
-    public void likeTest() throws Exception {
+    void likeTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/like.frd");
         ParseContext parseContext = getParseContext(resourceAsStream);
         PaymentModel model = new PaymentModel();
@@ -216,7 +214,7 @@ public class CustomTest extends AbstractPaymentTest {
     }
 
     @Test
-    public void inNotTest() throws Exception {
+    void inNotTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/in_not.frd");
         ParseContext parseContext = getParseContext(resourceAsStream);
         PaymentModel model = new PaymentModel();
@@ -226,7 +224,7 @@ public class CustomTest extends AbstractPaymentTest {
     }
 
     @Test
-    public void uniqCountTest() throws Exception {
+    void uniqCountTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/count_uniq.frd");
         when(uniqueValueAggregator.countUniqueValue(any(), any(), any(), any(), any())).thenReturn(2);
         ParseContext parseContext = getParseContext(resourceAsStream);
@@ -235,7 +233,7 @@ public class CustomTest extends AbstractPaymentTest {
     }
 
     @Test
-    public void uniqCountGroupByTest() throws Exception {
+    void uniqCountGroupByTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/count_uniqGroupBy_window.frd");
         when(uniqueValueAggregator.countUniqueValue(any(), any(), any(), any(), any())).thenReturn(2);
         ParseContext parseContext = getParseContext(resourceAsStream);
@@ -246,7 +244,7 @@ public class CustomTest extends AbstractPaymentTest {
     }
 
     @Test
-    public void eqCountryTest() throws Exception {
+    void eqCountryTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/eq_country.frd");
 
         when(countryResolver.resolveCountry(any(), anyString())).thenReturn("RU");

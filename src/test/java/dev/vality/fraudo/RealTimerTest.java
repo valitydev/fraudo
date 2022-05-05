@@ -5,17 +5,16 @@ import dev.vality.fraudo.constant.ResultStatus;
 import dev.vality.fraudo.model.ResultModel;
 import dev.vality.fraudo.test.model.PaymentModel;
 import dev.vality.fraudo.utils.ResultUtils;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.Answer;
 
 import java.io.InputStream;
 import java.util.concurrent.CountDownLatch;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.when;
 
@@ -25,13 +24,13 @@ public class RealTimerTest extends AbstractPaymentTest {
     public static final long MILLISTIME_FAST_FUNC = 10L;
     public static final long TIME_CALLING = 300L;
 
-    @Before
+    @BeforeEach
     public void init() {
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    public void timingTest() throws Exception {
+    void timingTest() throws Exception {
         InputStream resourceAsStream = RealTimerTest.class.getResourceAsStream("/rules/payment_template.frd");
         CountDownLatch countDownLatch = new CountDownLatch(1);
         mockAggr(countDownLatch);
@@ -46,7 +45,7 @@ public class RealTimerTest extends AbstractPaymentTest {
         ResultModel result = invoke(parseContext, model);
         long executionTime = System.currentTimeMillis() - start;
 
-        Assert.assertEquals(ResultStatus.ACCEPT, ResultUtils.findFirstNotNotifyStatus(result).get().getResultStatus());
+        assertEquals(ResultStatus.ACCEPT, ResultUtils.findFirstNotNotifyStatus(result).get().getResultStatus());
         assertEquals(0, countDownLatch.getCount());
         assertTrue(executionTime < TIME_CALL_AGGR_FUNC + 1 + TIME_CALLING);
 
@@ -57,7 +56,7 @@ public class RealTimerTest extends AbstractPaymentTest {
     }
 
     @Test
-    public void timingWithSuccessTest() throws Exception {
+    void timingWithSuccessTest() throws Exception {
         InputStream resourceAsStream = RealTimerTest.class.getResourceAsStream("/rules/sum_and_count_template.frd");
         CountDownLatch countDownLatch = new CountDownLatch(1);
         mockAggr(countDownLatch);
@@ -73,7 +72,7 @@ public class RealTimerTest extends AbstractPaymentTest {
         long executionTime = System.currentTimeMillis() - start;
         System.out.println("timingWithSuccessTest.executionTime=" + executionTime);
 
-        Assert.assertEquals(ResultStatus.ACCEPT, ResultUtils.findFirstNotNotifyStatus(result).get().getResultStatus());
+        assertEquals(ResultStatus.ACCEPT, ResultUtils.findFirstNotNotifyStatus(result).get().getResultStatus());
         assertTrue(executionTime < TIME_CALL_AGGR_FUNC * 4 + TIME_CALLING);
     }
 

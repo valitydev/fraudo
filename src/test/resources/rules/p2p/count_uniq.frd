@@ -1,2 +1,0 @@
-rule: unique("email", "ip", 1444) < 4
--> decline;

@@ -1,1 +1,0 @@
-rule:cb:like("bin", "5536.*") AND in("pan","9137")->decline;
