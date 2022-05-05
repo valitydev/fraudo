@@ -17,6 +17,9 @@ public class PaymentTimeWindowResolver implements TimeWindowResolver<FraudoPayme
         TimeWindow.TimeWindowBuilder builder = TimeWindow.builder();
         List<TerminalNode> times = ctx.INTEGER();
         String startWindow = TextUtil.safeGetText(times.get(0));
+        builder
+                .startWindowTime(Long.valueOf(startWindow))
+                .timeUnit(ChronoUnit.HOURS);
         if (times.size() == 2) {
             String endWindow = TextUtil.safeGetText(times.get(1));
             builder.endWindowTime(Long.valueOf(endWindow));
@@ -25,8 +28,6 @@ public class PaymentTimeWindowResolver implements TimeWindowResolver<FraudoPayme
             String timeUnit = ctx.time_unit().getText().toUpperCase();
             builder.timeUnit(ChronoUnit.valueOf(timeUnit));
         }
-        return builder
-                .startWindowTime(Long.valueOf(startWindow))
-                .build();
+        return builder.build();
     }
 }

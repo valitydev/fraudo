@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PaymentTimeWindowResolverTest {
 
-    private TimeWindowResolver<FraudoPaymentParser.Time_windowContext> timeWindowResolver =
+    private final TimeWindowResolver<FraudoPaymentParser.Time_windowContext> timeWindowResolver =
             new PaymentTimeWindowResolver();
 
     @Test
@@ -30,7 +30,7 @@ public class PaymentTimeWindowResolverTest {
         assertNotNull(timeWindow);
         assertEquals(24L, timeWindow.getStartWindowTime());
         assertNull(timeWindow.getEndWindowTime());
-        assertNull(timeWindow.getTimeUnit());
+        assertEquals(ChronoUnit.HOURS, timeWindow.getTimeUnit());
     }
 
     @Test
@@ -43,7 +43,7 @@ public class PaymentTimeWindowResolverTest {
         assertNotNull(timeWindow);
         assertEquals(24L, timeWindow.getStartWindowTime());
         assertEquals(2L, timeWindow.getEndWindowTime());
-        assertNull(timeWindow.getTimeUnit());
+        assertEquals(ChronoUnit.HOURS, timeWindow.getTimeUnit());
     }
 
     @Test

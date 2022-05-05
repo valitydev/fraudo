@@ -120,8 +120,6 @@ time_unit
  : 'minutes'
  | 'hours'
  | 'days'
- | 'weeks'
- | 'months'
  ;
 
 group_by
