@@ -7,61 +7,61 @@ import dev.vality.fraudo.model.TrustCondition;
 import dev.vality.fraudo.test.model.PaymentModel;
 import dev.vality.fraudo.utils.ResultUtils;
 import lombok.SneakyThrows;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.MockitoAnnotations;
 
 import java.io.InputStream;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 public class IsTrustedTest extends AbstractPaymentTest {
 
-    @Before
+    @BeforeEach
     public void init() {
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    public void trustedTest() {
+    void trustedTest() {
         when(customerTypeResolver.isTrusted(any())).thenReturn(true);
         testIsTrusted("/rules/is_trusted.frd");
     }
 
     @Test
-    public void trustedWithTemplateNameTest() {
+    void trustedWithTemplateNameTest() {
         when(customerTypeResolver.isTrusted(any())).thenReturn(true);
         testIsTrusted("/rules/is_trusted_with_template_name.frd");
     }
 
     @Test
-    public void trustedWithWithdrawalsConditionsTest() {
+    void trustedWithWithdrawalsConditionsTest() {
         when(customerTypeResolver.isTrusted(any(), isNull(List.class), anyListOf(TrustCondition.class)))
                 .thenReturn(true);
         testIsTrusted("/rules/is_trusted_with_withdrawals_conditions.frd");
     }
 
     @Test
-    public void trustedWithPaymentsConditionsTest() {
+    void trustedWithPaymentsConditionsTest() {
         when(customerTypeResolver.isTrusted(any(), anyListOf(TrustCondition.class), isNull(List.class)))
                 .thenReturn(true);
         testIsTrusted("/rules/is_trusted_with_payments_conditions.frd");
     }
 
     @Test
-    public void trustedWithPaymentsAndWithdrawalSingleConditionsTest() {
+    void trustedWithPaymentsAndWithdrawalSingleConditionsTest() {
         when(customerTypeResolver.isTrusted(any(), anyListOf(TrustCondition.class), anyListOf(TrustCondition.class)))
                 .thenReturn(true);
         testIsTrusted("/rules/is_trusted_with_payments_and_withdrawals_single_conditions.frd");
     }
 
     @Test
-    public void trustedWithPaymentsAndWithdrawalTest() {
+    void trustedWithPaymentsAndWithdrawalTest() {
         when(customerTypeResolver.isTrusted(any(), anyListOf(TrustCondition.class), anyListOf(TrustCondition.class)))
                 .thenReturn(true);
         testIsTrusted("/rules/is_trusted_with_payments_and_withdrawals_conditions.frd");

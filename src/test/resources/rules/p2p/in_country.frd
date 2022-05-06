@@ -1,2 +1,0 @@
-rule: in(countryBy("ip"), "RU", "EN")
--> accept;

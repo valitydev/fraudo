@@ -1,2 +1,0 @@
-rule: 3 < 2
--> decline;
