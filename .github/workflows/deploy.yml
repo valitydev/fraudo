@@ -8,9 +8,10 @@ on:
 
 jobs:
   deploy:
-    uses: valitydev/base-workflow/.github/workflows/maven-library-deploy.yml@v1
+    uses: valitydev/java-workflow/.github/workflows/maven-library-deploy.yml@v1
     secrets:
       server-username: ${{ secrets.OSSRH_USERNAME }}
       server-password: ${{ secrets.OSSRH_TOKEN }}
       deploy-secret-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
       deploy-secret-key-password: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
+      mm-webhook-url: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
