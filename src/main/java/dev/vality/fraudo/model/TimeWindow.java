@@ -1,16 +1,16 @@
 package dev.vality.fraudo.model;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.temporal.ChronoUnit;
 
 @Data
-@Builder
+@NoArgsConstructor
 public class TimeWindow {
 
-    private Long startWindowTime;
-    private Long endWindowTime;
+    private int start;
+    private int end;
     private ChronoUnit timeUnit;
 
 }
