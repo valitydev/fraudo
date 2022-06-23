@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.temporal.ChronoUnit;
 
+import static dev.vality.fraudo.constant.TimeUnit.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -31,7 +31,7 @@ public class PaymentTimeWindowResolverTest {
         assertNotNull(timeWindow);
         assertEquals(24, timeWindow.getStart());
         assertEquals(0, timeWindow.getEnd());
-        assertEquals(ChronoUnit.HOURS, timeWindow.getTimeUnit());
+        assertEquals(HOURS, timeWindow.getTimeUnit());
     }
 
     @Test
@@ -44,7 +44,7 @@ public class PaymentTimeWindowResolverTest {
         assertNotNull(timeWindow);
         assertEquals(24, timeWindow.getStart());
         assertEquals(2, timeWindow.getEnd());
-        assertEquals(ChronoUnit.HOURS, timeWindow.getTimeUnit());
+        assertEquals(HOURS, timeWindow.getTimeUnit());
     }
 
     @Test
@@ -57,7 +57,7 @@ public class PaymentTimeWindowResolverTest {
         assertNotNull(timeWindow);
         assertEquals(24, timeWindow.getStart());
         assertEquals(0, timeWindow.getEnd());
-        assertEquals(ChronoUnit.DAYS, timeWindow.getTimeUnit());
+        assertEquals(DAYS, timeWindow.getTimeUnit());
     }
 
     @Test
@@ -70,7 +70,7 @@ public class PaymentTimeWindowResolverTest {
         assertNotNull(timeWindow);
         assertEquals(24, timeWindow.getStart());
         assertEquals(1, timeWindow.getEnd());
-        assertEquals(ChronoUnit.HOURS, timeWindow.getTimeUnit());
+        assertEquals(HOURS, timeWindow.getTimeUnit());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class PaymentTimeWindowResolverTest {
         assertNotNull(timeWindow);
         assertEquals(4, timeWindow.getStart());
         assertEquals(2, timeWindow.getEnd());
-        assertEquals(ChronoUnit.DAYS, timeWindow.getTimeUnit());
+        assertEquals(CALENDAR_MONTHS, timeWindow.getTimeUnit());
     }
 
     private FraudoPaymentParser.Time_windowContext getTimeWindowContext(String path) throws IOException {

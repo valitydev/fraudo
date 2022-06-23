@@ -6,11 +6,10 @@ import dev.vality.fraudo.resolver.TimeWindowResolver;
 import dev.vality.fraudo.utils.TextUtil;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Objects;
 
-import static dev.vality.fraudo.constant.TimeUnit.*;
+import static dev.vality.fraudo.constant.TimeUnit.HOURS;
 
 
 public class PaymentTimeWindowResolver implements TimeWindowResolver<FraudoPaymentParser.Time_windowContext> {
@@ -22,7 +21,7 @@ public class PaymentTimeWindowResolver implements TimeWindowResolver<FraudoPayme
         String start = TextUtil.safeGetText(times.get(0));
         builder
                 .start(Integer.parseInt(start))
-                .timeUnit(ChronoUnit.HOURS);
+                .timeUnit(HOURS);
         if (times.size() == 2) {
             String end = TextUtil.safeGetText(times.get(1));
             builder
@@ -31,17 +30,9 @@ public class PaymentTimeWindowResolver implements TimeWindowResolver<FraudoPayme
         if (Objects.nonNull(ctx.time_unit())) {
             String timeUnit = ctx.time_unit().getText();
             builder
-                    .timeUnit(resolveTimeUnit(timeUnit));
+                    .timeUnit(timeUnit);
         }
         return builder.build();
-    }
-
-    private ChronoUnit resolveTimeUnit(String timeUnit) {
-        return switch (timeUnit) {
-            case MINUTES -> ChronoUnit.MINUTES;
-            case DAYS, CALENDAR_MONTHS -> ChronoUnit.DAYS;
-            default -> ChronoUnit.HOURS;
-        };
     }
 
 }
