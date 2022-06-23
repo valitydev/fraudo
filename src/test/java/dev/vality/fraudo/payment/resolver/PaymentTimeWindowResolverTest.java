@@ -12,7 +12,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.temporal.ChronoUnit;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 public class PaymentTimeWindowResolverTest {
@@ -28,8 +29,8 @@ public class PaymentTimeWindowResolverTest {
         TimeWindow timeWindow = timeWindowResolver.resolve(timeWindowContext);
 
         assertNotNull(timeWindow);
-        assertEquals(24L, timeWindow.getStartWindowTime());
-        assertNull(timeWindow.getEndWindowTime());
+        assertEquals(24, timeWindow.getStart());
+        assertEquals(0, timeWindow.getEnd());
         assertEquals(ChronoUnit.HOURS, timeWindow.getTimeUnit());
     }
 
@@ -41,8 +42,8 @@ public class PaymentTimeWindowResolverTest {
         TimeWindow timeWindow = timeWindowResolver.resolve(timeWindowContext);
 
         assertNotNull(timeWindow);
-        assertEquals(24L, timeWindow.getStartWindowTime());
-        assertEquals(2L, timeWindow.getEndWindowTime());
+        assertEquals(24, timeWindow.getStart());
+        assertEquals(2, timeWindow.getEnd());
         assertEquals(ChronoUnit.HOURS, timeWindow.getTimeUnit());
     }
 
@@ -54,8 +55,8 @@ public class PaymentTimeWindowResolverTest {
         TimeWindow timeWindow = timeWindowResolver.resolve(timeWindowContext);
 
         assertNotNull(timeWindow);
-        assertEquals(24L, timeWindow.getStartWindowTime());
-        assertNull(timeWindow.getEndWindowTime());
+        assertEquals(24, timeWindow.getStart());
+        assertEquals(0, timeWindow.getEnd());
         assertEquals(ChronoUnit.DAYS, timeWindow.getTimeUnit());
     }
 
@@ -67,9 +68,22 @@ public class PaymentTimeWindowResolverTest {
         TimeWindow timeWindow = timeWindowResolver.resolve(timeWindowContext);
 
         assertNotNull(timeWindow);
-        assertEquals(24L, timeWindow.getStartWindowTime());
-        assertEquals(1L, timeWindow.getEndWindowTime());
+        assertEquals(24, timeWindow.getStart());
+        assertEquals(1, timeWindow.getEnd());
         assertEquals(ChronoUnit.HOURS, timeWindow.getTimeUnit());
+    }
+
+    @Test
+    void withCalMonthsTimeUnitTest() throws Exception {
+        FraudoPaymentParser.Time_windowContext timeWindowContext =
+                getTimeWindowContext("/rules/time_window/withCalMonthsTimeUnit.frd");
+
+        TimeWindow timeWindow = timeWindowResolver.resolve(timeWindowContext);
+
+        assertNotNull(timeWindow);
+        assertEquals(4, timeWindow.getStart());
+        assertEquals(2, timeWindow.getEnd());
+        assertEquals(ChronoUnit.DAYS, timeWindow.getTimeUnit());
     }
 
     private FraudoPaymentParser.Time_windowContext getTimeWindowContext(String path) throws IOException {

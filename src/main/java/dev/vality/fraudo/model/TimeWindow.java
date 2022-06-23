@@ -9,8 +9,8 @@ import java.time.temporal.ChronoUnit;
 @Builder
 public class TimeWindow {
 
-    private Long startWindowTime;
-    private Long endWindowTime;
+    private int start;
+    private int end;
     private ChronoUnit timeUnit;
 
 }
