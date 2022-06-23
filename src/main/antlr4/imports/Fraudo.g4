@@ -120,7 +120,7 @@ time_unit
  : 'minutes'
  | 'hours'
  | 'days'
- | 'cal_months'
+ | 'calendar_months'
  ;
 
 group_by

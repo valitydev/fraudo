@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -75,47 +74,15 @@ public class PaymentTimeWindowResolverTest {
     }
 
     @Test
-    void withOneCalMonthsTimeUnitTest() throws Exception {
+    void withCalMonthsTimeUnitTest() throws Exception {
         FraudoPaymentParser.Time_windowContext timeWindowContext =
-                getTimeWindowContext("/rules/time_window/withOneCalMonthsTimeUnit.frd");
+                getTimeWindowContext("/rules/time_window/withCalMonthsTimeUnit.frd");
 
         TimeWindow timeWindow = timeWindowResolver.resolve(timeWindowContext);
 
-        LocalDate now = LocalDate.now();
         assertNotNull(timeWindow);
-        assertEquals(now.getDayOfMonth(), timeWindow.getStart());
-        assertEquals(ChronoUnit.DAYS, timeWindow.getTimeUnit());
-    }
-
-    @Test
-    void withThreeCalMonthsTimeUnitTest() throws Exception {
-        FraudoPaymentParser.Time_windowContext timeWindowContext =
-                getTimeWindowContext("/rules/time_window/withThreeCalMonthsTimeUnit.frd");
-
-        TimeWindow timeWindow = timeWindowResolver.resolve(timeWindowContext);
-
-        LocalDate now = LocalDate.now();
-        int startForThreeCalMonths = now.getDayOfMonth() + now.minusMonths(1).lengthOfMonth() +
-                now.minusMonths(2).lengthOfMonth();
-        assertNotNull(timeWindow);
-        assertEquals(startForThreeCalMonths, timeWindow.getStart());
-        assertEquals(ChronoUnit.DAYS, timeWindow.getTimeUnit());
-    }
-
-    @Test
-    void withCalMonthsTimeUnitAndWithEndTimeTest() throws Exception {
-        FraudoPaymentParser.Time_windowContext timeWindowContext =
-                getTimeWindowContext("/rules/time_window/withCalMonthsTimeUnitAndWithEndTime.frd");
-
-        TimeWindow timeWindow = timeWindowResolver.resolve(timeWindowContext);
-
-        LocalDate now = LocalDate.now();
-        int startForFourCalMonths = now.getDayOfMonth() + now.minusMonths(1).lengthOfMonth() +
-                now.minusMonths(2).lengthOfMonth() + now.minusMonths(3).lengthOfMonth();
-        int endForTwoCalMonths = now.minusMonths(1).lengthOfMonth() + now.minusMonths(2).lengthOfMonth();
-        assertNotNull(timeWindow);
-        assertEquals(startForFourCalMonths, timeWindow.getStart());
-        assertEquals(endForTwoCalMonths, timeWindow.getEnd());
+        assertEquals(4, timeWindow.getStart());
+        assertEquals(2, timeWindow.getEnd());
         assertEquals(ChronoUnit.DAYS, timeWindow.getTimeUnit());
     }
 
