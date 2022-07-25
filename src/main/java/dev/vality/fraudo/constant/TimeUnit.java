@@ -9,5 +9,6 @@ public class TimeUnit {
     public static final String HOURS = "hours";
     public static final String DAYS = "days";
     public static final String CALENDAR_MONTHS = "calendar_months";
+    public static final String CALENDAR_DAYS = "calendar_days";
 
 }

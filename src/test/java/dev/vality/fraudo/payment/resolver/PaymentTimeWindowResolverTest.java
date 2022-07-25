@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
-public class PaymentTimeWindowResolverTest {
+class PaymentTimeWindowResolverTest {
 
     private final TimeWindowResolver<FraudoPaymentParser.Time_windowContext> timeWindowResolver =
             new PaymentTimeWindowResolver();
@@ -84,6 +84,19 @@ public class PaymentTimeWindowResolverTest {
         assertEquals(4, timeWindow.getStart());
         assertEquals(2, timeWindow.getEnd());
         assertEquals(CALENDAR_MONTHS, timeWindow.getTimeUnit());
+    }
+
+    @Test
+    void withCalDaysTimeUnitTest() throws Exception {
+        FraudoPaymentParser.Time_windowContext timeWindowContext =
+                getTimeWindowContext("/rules/time_window/withCalDaysTimeUnit.frd");
+
+        TimeWindow timeWindow = timeWindowResolver.resolve(timeWindowContext);
+
+        assertNotNull(timeWindow);
+        assertEquals(5, timeWindow.getStart());
+        assertEquals(2, timeWindow.getEnd());
+        assertEquals(CALENDAR_DAYS, timeWindow.getTimeUnit());
     }
 
     private FraudoPaymentParser.Time_windowContext getTimeWindowContext(String path) throws IOException {

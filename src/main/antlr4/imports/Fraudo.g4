@@ -121,6 +121,7 @@ time_unit
  | 'hours'
  | 'days'
  | 'calendar_months'
+ | 'calendar_days'
  ;
 
 group_by
