@@ -73,3 +73,11 @@ hs_err_pid*
 env.list
 
 gen
+
+mkdocs/site
+plantuml-toolset
+.vscode/
+.DS_Store
+pyvenv.cfg
+bin/
+lib/
