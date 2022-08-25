@@ -8,26 +8,3 @@ on:
 jobs:
   build:
     uses: valitydev/java-workflow/.github/workflows/maven-library-build.yml@v1
-
-  documentation:
-    name: Build documentation
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Python runtime
-        uses: actions/setup-python@v1
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-
-      - name: Install Python dependencies
-        run: |
-          pip install -r requirements.txt
-      - name: Install theme
-        run: |
-          pip install mkdocs-gitbook
-      - name: Build documentation
-        run: |
-          mkdocs build
-          mkdocs --version

@@ -15,28 +15,3 @@ jobs:
       deploy-secret-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
       deploy-secret-key-password: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
       mm-webhook-url: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
-
-  documentation:
-    name: Build documentation
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Python runtime
-        uses: actions/setup-python@v1
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-
-      - name: Install Python dependencies
-        run: |
-          pip install -r requirements.txt
-      - name: Install theme
-        run: |
-          pip install mkdocs-gitbook
-      - name: Deploy documentation
-        env:
-          GOOGLE_ANALYTICS_KEY: ${{ secrets.GOOGLE_ANALYTICS_KEY }}
-        run: |
-          mkdocs gh-deploy --force
-          mkdocs --version
