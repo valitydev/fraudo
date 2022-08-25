@@ -9,7 +9,7 @@ and triggers for attempts at fraudulent actions
 
 **Language use antlr4, developers can use this documentation** - https://www.antlr.org/
 
-####How build docs locally?
+#### How build docs locally?
 
 1. ```python3 -m venv .```
 
