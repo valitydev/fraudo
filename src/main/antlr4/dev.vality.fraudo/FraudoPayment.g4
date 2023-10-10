@@ -73,7 +73,7 @@ count_success
  ;
 
 count_error
- : 'countError' LPAREN STRING time_window DELIMITER STRING (group_by)? RPAREN
+ : 'countError' LPAREN STRING time_window (DELIMITER STRING)? (group_by)? RPAREN
  ;
 
 count_chargeback
@@ -89,7 +89,7 @@ sum_success
  ;
 
 sum_error
- : 'sumError' LPAREN STRING time_window DELIMITER STRING (group_by)? RPAREN
+ : 'sumError' LPAREN STRING time_window (DELIMITER STRING)? (group_by)? RPAREN
  ;
 
 sum_chargeback
