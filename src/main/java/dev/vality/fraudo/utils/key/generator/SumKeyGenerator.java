@@ -27,8 +27,15 @@ public class SumKeyGenerator {
     }
 
     public static <T> String generateErrorKey(Sum_errorContext ctx, Function<String, T> resolve) {
-        return CommonKeyGenerator.generateKeyGroupedTwoFieldFunction(ctx.STRING(0),
-                ctx.STRING(1),
+        if (ctx.STRING().size() == 2) {
+            return CommonKeyGenerator.generateKeyGroupedTwoFieldFunction(ctx.STRING(0),
+                    ctx.STRING(1),
+                    ctx.children.get(0),
+                    ctx.time_window(),
+                    ctx.group_by(),
+                    resolve);
+        }
+        return CommonKeyGenerator.generateKeyGroupedFunction(ctx.STRING(0),
                 ctx.children.get(0),
                 ctx.time_window(),
                 ctx.group_by(),

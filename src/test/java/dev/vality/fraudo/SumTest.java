@@ -43,6 +43,16 @@ public class SumTest extends AbstractPaymentTest {
     }
 
     @Test
+    void sumErrorTest() throws Exception {
+        InputStream resourceAsStream = SumTest.class.getResourceAsStream("/rules/sumError.frd");
+        Mockito.when(sumPaymentAggregator.sumError(anyObject(), any(), any(), any())).thenReturn(524.0);
+        ParseContext parseContext = getParseContext(resourceAsStream);
+        ResultModel result = invokeParse(parseContext);
+        assertEquals(ResultStatus.DECLINE, ResultUtils.findFirstNotNotifyStatus(result).get().getResultStatus());
+
+    }
+
+    @Test
     void sumChargeRefundTest() throws Exception {
         InputStream resourceAsStream = SumTest.class.getResourceAsStream("/rules/sum_chargeback_refund.frd");
         Mockito.when(sumPaymentAggregator.sumChargeback(anyObject(), any(), any(), any())).thenReturn(10000.60);

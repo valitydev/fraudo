@@ -42,12 +42,19 @@ public class SumVisitorImpl<T, U> implements SumVisitor<T> {
     @Override
     public Double visitSumError(Sum_errorContext ctx, T model) {
         String countTarget = TextUtil.safeGetText(ctx.STRING(0));
-        String errorCode = TextUtil.safeGetText(ctx.STRING(1));
+        if (ctx.STRING().size() == 2) {
+            String errorCode = TextUtil.safeGetText(ctx.STRING(1));
+            return sumPaymentAggregator.sumError(
+                    fieldResolver.resolveName(countTarget),
+                    model,
+                    timeWindowResolver.resolve(ctx.time_window()),
+                    errorCode,
+                    groupResolver.resolve(ctx.group_by()));
+        }
         return sumPaymentAggregator.sumError(
                 fieldResolver.resolveName(countTarget),
                 model,
                 timeWindowResolver.resolve(ctx.time_window()),
-                errorCode,
                 groupResolver.resolve(ctx.group_by()));
     }
 
