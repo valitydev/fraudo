@@ -297,6 +297,15 @@ public class FirstFindVisitorImpl<T extends BaseModel, U> extends FraudoPaymentB
     }
 
     @Override
+    public Integer visitCount_pending(Count_pendingContext ctx) {
+        String key = CountKeyGenerator.generatePendingKey(ctx, fieldResolver::resolveName);
+        return (Integer) localFuncCache.get().computeIfAbsent(
+                key,
+                s -> countVisitor.visitCountPending(ctx, threadLocalModel.get())
+        );
+    }
+
+    @Override
     public Integer visitCount_error(Count_errorContext ctx) {
         String key = CountKeyGenerator.generateErrorKey(ctx, fieldResolver::resolveName);
         return (Integer) localFuncCache.get().computeIfAbsent(

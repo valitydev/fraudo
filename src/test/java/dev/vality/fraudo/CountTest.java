@@ -54,6 +54,16 @@ public class CountTest extends AbstractPaymentTest {
     }
 
     @Test
+    void countPendingTest() throws Exception {
+        InputStream resourceAsStream = CountTest.class.getResourceAsStream("/rules/countPending.frd");
+        when(countPaymentAggregator.countPending(anyObject(), any(), any(), any())).thenReturn(6);
+        ParseContext parseContext = getParseContext(resourceAsStream);
+        ResultModel result = invokeParse(parseContext);
+        assertEquals(ResultStatus.DECLINE, ResultUtils.findFirstNotNotifyStatus(result).get().getResultStatus());
+        assertEquals("0", ResultUtils.findFirstNotNotifyStatus(result).get().getRuleChecked());
+    }
+
+    @Test
     void countCargeRefundTest() throws Exception {
         InputStream resourceAsStream = CountTest.class.getResourceAsStream("/rules/count_chargeback_refund.frd");
         when(countPaymentAggregator.countChargeback(anyObject(), any(), any(), any())).thenReturn(3);

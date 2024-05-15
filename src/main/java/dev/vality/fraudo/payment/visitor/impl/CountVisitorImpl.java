@@ -40,6 +40,17 @@ public class CountVisitorImpl<T, U> implements CountVisitor<T> {
     }
 
     @Override
+    public Integer visitCountPending(FraudoPaymentParser.Count_pendingContext ctx, T model) {
+        String countTarget = TextUtil.safeGetText(ctx.STRING());
+        return countPaymentAggregator.countPending(
+                fieldResolver.resolveName(countTarget),
+                model,
+                timeWindowResolver.resolve(ctx.time_window()),
+                groupResolver.resolve(ctx.group_by())
+        );
+    }
+
+    @Override
     public Integer visitCountError(FraudoPaymentParser.Count_errorContext ctx, T model) {
         String countTarget = TextUtil.safeGetText(ctx.STRING(0));
         if (ctx.STRING().size() == 2) {

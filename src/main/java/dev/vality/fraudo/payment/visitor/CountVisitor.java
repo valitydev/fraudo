@@ -8,6 +8,8 @@ public interface CountVisitor<T> {
 
     Integer visitCountSuccess(Count_successContext ctx, T model);
 
+    Integer visitCountPending(Count_pendingContext ctx, T model);
+
     Integer visitCountError(Count_errorContext ctx, T model);
 
     Integer visitCountChargeback(Count_chargebackContext ctx, T model);

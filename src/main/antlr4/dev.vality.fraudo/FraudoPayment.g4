@@ -50,6 +50,7 @@ unaryExpression
 
 integerExpression
     : count
+    | count_pending
     | count_success
     | count_error
     | count_chargeback
@@ -70,6 +71,10 @@ floatExpression
 
 count_success
  : 'countSuccess' LPAREN STRING time_window (group_by)? RPAREN
+ ;
+
+count_pending
+ : 'countPending' LPAREN STRING time_window (group_by)? RPAREN
  ;
 
 count_error
