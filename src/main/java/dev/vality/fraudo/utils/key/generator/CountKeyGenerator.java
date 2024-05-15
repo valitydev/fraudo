@@ -26,6 +26,14 @@ public class CountKeyGenerator {
                 resolve);
     }
 
+    public static <T> String generatePendingKey(Count_pendingContext ctx, Function<String, T> resolve) {
+        return CommonKeyGenerator.generateKeyGroupedFunction(ctx.STRING(),
+                ctx.children.get(0),
+                ctx.time_window(),
+                ctx.group_by(),
+                resolve);
+    }
+
     public static <T> String generateErrorKey(Count_errorContext ctx, Function<String, T> resolve) {
         if (ctx.STRING().size() == 2) {
             return CommonKeyGenerator.generateKeyGroupedTwoFieldFunction(ctx.STRING(0),
