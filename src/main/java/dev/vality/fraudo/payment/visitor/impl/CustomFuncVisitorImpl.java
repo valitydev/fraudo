@@ -11,6 +11,8 @@ import dev.vality.fraudo.resolver.FieldResolver;
 import dev.vality.fraudo.utils.TextUtil;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Random;
+
 import static dev.vality.fraudo.FraudoPaymentParser.*;
 
 @RequiredArgsConstructor
@@ -49,6 +51,12 @@ public class CustomFuncVisitorImpl<T, U> implements CustomFuncVisitor<T> {
                 timeWindowResolver.resolve(ctx.time_window()),
                 groupResolver.resolve(ctx.group_by())
         );
+    }
+
+    @Override
+    public Integer visitRand(RandContext ctx, T model) {
+        Integer bound = TextUtil.safeGetInteger(ctx.INTEGER());
+        return new Random().nextInt(bound);
     }
 
     @Override

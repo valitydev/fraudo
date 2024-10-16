@@ -174,6 +174,14 @@ public class CustomTest extends AbstractPaymentTest {
     }
 
     @Test
+    void randTest() throws Exception {
+        InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/rand.frd");
+        ParseContext parseContext = getParseContext(resourceAsStream);
+        ResultModel result = invoke(parseContext, new PaymentModel());
+        assertEquals(ResultStatus.ACCEPT, ResultUtils.findFirstNotNotifyStatus(result).get().getResultStatus());
+    }
+
+    @Test
     void cardCategoryTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/cardCategory.frd");
         ParseContext parseContext = getParseContext(resourceAsStream);

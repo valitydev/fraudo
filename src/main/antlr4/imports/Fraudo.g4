@@ -60,6 +60,10 @@ unique
  : 'unique' LPAREN STRING DELIMITER STRING time_window (group_by)? RPAREN
  ;
 
+rand
+ : 'rand' LPAREN INTEGER RPAREN
+ ;
+
 in
  : 'in' LPAREN (country_by | STRING) DELIMITER string_list RPAREN
  ;
