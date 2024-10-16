@@ -434,4 +434,9 @@ public class FirstFindVisitorImpl<T extends BaseModel, U> extends FraudoPaymentB
     public String visitPayment_system(Payment_systemContext ctx) {
         return threadLocalModel.get().getPaymentSystem();
     }
+
+    @Override
+    public Integer visitRand(RandContext ctx) {
+        return customFuncVisitor.visitRand(ctx, threadLocalModel.get());
+    }
 }

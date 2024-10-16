@@ -56,6 +56,7 @@ integerExpression
     | count_chargeback
     | count_refund
     | unique
+    | rand
     | INTEGER
     ;
 
@@ -149,3 +150,8 @@ trusted_token_condition
         INTEGER                     //transactions_count
     RPAREN
  ;
+
+rand
+ : 'rand' LPAREN INTEGER RPAREN
+ ;
+

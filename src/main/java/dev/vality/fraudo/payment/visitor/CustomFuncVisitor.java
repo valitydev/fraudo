@@ -10,6 +10,8 @@ public interface CustomFuncVisitor<T> {
 
     Integer visitUnique(UniqueContext ctx, T model);
 
+    Integer visitRand(RandContext ctx, T model);
+
     boolean visitCheckMobile(Is_mobileContext ctx, T model);
 
     boolean visitCheckRecurrent(Is_recurrentContext ctx, T model);
