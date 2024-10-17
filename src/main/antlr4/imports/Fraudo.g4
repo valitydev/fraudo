@@ -93,7 +93,8 @@ country_by
  ;
 
 result
- : 'accept'
+ : 'trust'
+ | 'accept'
  | '3ds'
  | 'highRisk'
  | 'decline'
@@ -103,7 +104,8 @@ result
  ;
 
 catch_result
- : 'accept'
+ : 'trust'
+ | 'accept'
  | '3ds'
  | 'highRisk'
  | 'notify'
