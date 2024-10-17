@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>Синтаксис - Fraudo|docs</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="generator" content="mkdocs-1.6.1, mkdocs-gitbook-1.0.7">
+
+<link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta rel="next" href="" />
+<link href="../../css/style.min.css" rel="stylesheet"> 
+</head>
+
+<body>
+<div class="book">
+<div class="book-summary">
+
+<nav role="navigation">
+<ul class="summary">
+<li>
+<a href="../.." target="_blank" class="custom-link">Fraudo|docs</a>
+</li>
+<li class="divider"></li>
+<li class="chapter" data-path="">
+<a href="../..">О языке</a>
+<li class="header">Синтаксис</li>
+
+<li>
+<a href="./" class="active">Синтаксис</a>
+</li>
+
+<li>
+<a href="../operations/" class="">Операции</a>
+</li>
+
+<li>
+<a href="../examples/" class="">Примеры</a>
+</li>
+
+<li class="divider"></li>
+
+
+
+<li><a href="http://www.mkdocs.org">
+Published with MkDocs
+</a></li>
+
+<li><a href="https://github.com/GitbookIO/theme-default">
+Theme by GitBook
+</a></li>
+</ul>
+
+</nav>
+
+</div> <!-- end of book-summary -->
+
+<div class="book-body">
+<div class="body-inner">
+<div class="book-header" role="navigation">
+
+<!-- Title -->
+<h1>
+<i class="fa fa-circle-o-notch fa-spin"></i>
+<a href="." ></a>
+</h1>
+
+</div> <!-- end of book-header -->
+
+<div class="page-wrapper" tabindex="-1" role="main">
+<div class="page-inner">
+
+<section class="normal markdown-section">
+
+
+
+<h1 id="_1">Синтаксис<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p><img alt="svg" src="../img/syntax.svg" /></p></p>
+<p>Все правила начинаются с ключевого слова <code>rule</code> затем идет разделитель <code>:</code>,
+после этого опционально может быть указано имя правила <code>rule name</code> + <code>:</code>
+(оно будет отображаться в случае его срабатывания, иначе будет порядковый номер в шаблоне).</p>
+<p>Далее описывается основной блок с функциями разделенными логическими операторами <code>operations</code> 
+(список доступных функций описан в <a href="../operations/">Операции</a>).</p>
+<p>В завершение необходимо определить <a href="../operations/#_9">результат срабатывания правила</a>, указав его после <code>-&gt;</code>.</p>
+<p>Все правила должны быть завершены терминальным символом <code>;</code>.</p>
+<p>Пример:</p>
+<div class="highlight"><pre><span></span><code>rule: countError(&quot;fingerprint&quot;, 1444, &quot;error_code&quot;) &gt; 5 -&gt; decline;
+</code></pre></div>
+<p>Также до завершения правила опционально можно указать блок <code>catch</code> + <code>:</code> с неким <a href="../operations/#catch">результатом</a>,
+что подскажет системе как реагировать на ошибки при обработке правила.</p>
+<p>Пример:</p>
+<div class="highlight"><pre><span></span><code>rule: unique(&quot;email&quot;, &quot;ip&quot;) &lt; 4 -&gt; accept
+catch: decline;
+</code></pre></div>
+<p>Для лучшего понимания смотрите раздел с <a href="../examples/">примерами</a>.</p>
+
+
+</section>
+
+</div> <!-- end of page-inner -->
+</div> <!-- end of page-wrapper -->
+
+</div> <!-- end of body-inner -->
+
+</div> <!-- end of book-body -->
+<script src="../../js/main.js"></script>
+<script src="../../js/gitbook.min.js"></script>
+<script src="../../js/theme.min.js"></script>
+</body>
+</html>

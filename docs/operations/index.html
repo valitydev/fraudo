@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>Операции - Fraudo|docs</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="generator" content="mkdocs-1.6.1, mkdocs-gitbook-1.0.7">
+
+<link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta rel="next" href="" />
+<link href="../../css/style.min.css" rel="stylesheet"> 
+</head>
+
+<body>
+<div class="book">
+<div class="book-summary">
+
+<nav role="navigation">
+<ul class="summary">
+<li>
+<a href="../.." target="_blank" class="custom-link">Fraudo|docs</a>
+</li>
+<li class="divider"></li>
+<li class="chapter" data-path="">
+<a href="../..">О языке</a>
+<li class="header">Синтаксис</li>
+
+<li>
+<a href="../syntax/" class="">Синтаксис</a>
+</li>
+
+<li>
+<a href="./" class="active">Операции</a>
+</li>
+
+<li>
+<a href="../examples/" class="">Примеры</a>
+</li>
+
+<li class="divider"></li>
+
+
+
+<li><a href="http://www.mkdocs.org">
+Published with MkDocs
+</a></li>
+
+<li><a href="https://github.com/GitbookIO/theme-default">
+Theme by GitBook
+</a></li>
+</ul>
+
+</nav>
+
+</div> <!-- end of book-summary -->
+
+<div class="book-body">
+<div class="body-inner">
+<div class="book-header" role="navigation">
+
+<!-- Title -->
+<h1>
+<i class="fa fa-circle-o-notch fa-spin"></i>
+<a href="." ></a>
+</h1>
+
+</div> <!-- end of book-header -->
+
+<div class="page-wrapper" tabindex="-1" role="main">
+<div class="page-inner">
+
+<section class="normal markdown-section">
+
+
+
+<h1 id="_1">Функции языка<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="_2">Параметры функций<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h4 id="group_field">Поля группировки (group_field):<a class="headerlink" href="#group_field" title="Permanent link">&para;</a></h4>
+<p>Список полей которые можно использовать для группировок при подсчете сумм, количества и уникальности</p>
+<div class="highlight"><pre><span></span><code>email
+ip
+fingerprint
+bin
+shop_ip
+party_id
+card_token
+</code></pre></div>
+<h4 id="time_unit">Единицы времени (time_unit):<a class="headerlink" href="#time_unit" title="Permanent link">&para;</a></h4>
+<p>Минуты, часы и дни работают как разница, то есть сейчас <strong><em>13:54</em></strong></p>
+<p>=&gt; <strong><em>1 hours</em></strong> означает, что функция будет считать от <strong><em>12:54</em></strong></p>
+<p>В свою очередь calendar_months и calendar_days означают календарное значение, то есть <strong><em>13:54 05.04.2022</em></strong></p>
+<p>=&gt; <strong><em>1 calendar_days</em></strong> означает, что функция будет считать от <strong><em>00:00 05.04.2022</em></strong></p>
+<div class="highlight"><pre><span></span><code>minutes
+hours
+days
+calendar_months
+calendar_days
+</code></pre></div>
+<h2 id="_3">Подсчет количества<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>Подсчет количества платежей в разрезе поля указанного в <code>group_field</code> за период по num_time, time_unit, также могут
+быть указаны дополнительные поля группировки (party_id, shop_id и т.д.)</p>
+<div class="highlight"><pre><span></span><code>count<span class="o">(</span><span class="s2">&quot;group_field&quot;</span>,<span class="w"> </span>num_time,<span class="w"> </span>time_unit,<span class="w"> </span><span class="o">[</span><span class="s2">&quot;group_by_additional_fields&quot;</span><span class="o">])</span>
+</code></pre></div>
+<p>Подсчет количества успешных платежей в разрезе поля указанного в <code>group_field</code> за период по num_time, time_unit,
+также могут быть указаны дополнительные поля группировки (party_id, shop_id и т.д.)</p>
+<div class="highlight"><pre><span></span><code>countSuccess<span class="o">(</span><span class="s2">&quot;group_field&quot;</span>,<span class="w"> </span>num_time,<span class="w"> </span>time_unit,<span class="w"> </span><span class="o">[</span><span class="s2">&quot;group_by_additional_fields&quot;</span><span class="o">])</span>
+</code></pre></div>
+<p>Подсчет количества ошибочных платежей в разрезе поля указанного в <code>group_field</code> за период
+по <code>num_time, time_unit</code>, с указанием конкретного кода ошибки <code>error_code</code>
+также могут быть указаны дополнительные поля группировки (<code>party_id, shop_id</code> и т.д.)</p>
+<div class="highlight"><pre><span></span><code>countError<span class="o">(</span><span class="s2">&quot;group_field&quot;</span>,<span class="w"> </span>num_time,<span class="w"> </span>time_unit,<span class="w"> </span><span class="s2">&quot;error_code&quot;</span>,<span class="w"> </span><span class="o">[</span><span class="s2">&quot;group_by_additional_fields&quot;</span><span class="o">])</span>
+</code></pre></div>
+<p>Подсчет количества чарджбеков в разрезе поля указанного в <code>group_field</code> за период по num_time, time_unit, также
+могут быть указаны дополнительные поля группировки (<code>party_id, shop_id</code> и т.д.)</p>
+<div class="highlight"><pre><span></span><code>countChargeback<span class="o">(</span><span class="s2">&quot;group_field&quot;</span>,<span class="w"> </span>num_time,<span class="w"> </span>time_unit,<span class="w"> </span><span class="o">[</span><span class="s2">&quot;group_by_additional_fields&quot;</span><span class="o">])</span>
+</code></pre></div>
+<p>Подсчет количества возвратов в разрезе поля указанного в <code>group_field</code> за период по num_time, time_unit, также могут
+быть указаны дополнительные поля группировки (<code>party_id, shop_id</code> и т.д.)</p>
+<div class="highlight"><pre><span></span><code>countRefund<span class="o">(</span><span class="s2">&quot;group_field&quot;</span>,<span class="w"> </span>num_time,<span class="w"> </span>time_unit,<span class="w"> </span><span class="o">[</span><span class="s2">&quot;group_by_additional_fields&quot;</span><span class="o">])</span>
+</code></pre></div>
+<p><a href="../examples/#_5">Примеры</a></p>
+<h2 id="_4">Подсчет сумм<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>Подсчет суммы платежей в разрезе поля указанного в <code>group_field</code> за период по num_time, time_unit, также могут быть
+указаны дополнительные поля группировки (<code>party_id, shop_id</code> и т.д.)</p>
+<div class="highlight"><pre><span></span><code>sum<span class="o">(</span><span class="s2">&quot;group_field&quot;</span>,<span class="w"> </span>num_time,<span class="w"> </span>time_unit,<span class="w"> </span><span class="o">[</span><span class="s2">&quot;group_by_additional_fields&quot;</span><span class="o">])</span>
+</code></pre></div>
+<p>Подсчет суммы успешных платежей в разрезе поля указанного в <code>group_field</code> за период по num_time, time_unit, также
+могут быть указаны дополнительные поля группировки (<code>party_id, shop_id</code> и т.д.)</p>
+<div class="highlight"><pre><span></span><code>sumSuccess<span class="o">(</span><span class="s2">&quot;group_field&quot;</span>,<span class="w"> </span>num_time,<span class="w"> </span>time_unit,<span class="w"> </span><span class="o">[</span><span class="s2">&quot;group_by_additional_fields&quot;</span><span class="o">])</span>
+</code></pre></div>
+<p>Подсчет суммы ошибочных платежей в разрезе поля указанного в <code>group_field</code> за период по <code>num_time, time_unit</code>, с
+указанием конкретного кода ошибки <code>error_code</code>
+также могут быть указаны дополнительные поля группировки (<code>party_id, shop_id</code> и т.д.)</p>
+<div class="highlight"><pre><span></span><code>sumError<span class="o">((</span><span class="s2">&quot;group_field&quot;</span>,<span class="w"> </span>num_time,<span class="w"> </span>time_unit,<span class="w"> </span><span class="s2">&quot;error_code&quot;</span>,<span class="w"> </span><span class="o">[</span><span class="s2">&quot;group_by_additional_fields&quot;</span><span class="o">])</span>
+</code></pre></div>
+<p>Подсчет суммы чарджбеков в разрезе поля указанного в <code>group_field</code> за период по num_time, time_unit, также могут
+быть указаны дополнительные поля группировки (<code>party_id, shop_id</code> и т.д.)</p>
+<div class="highlight"><pre><span></span><code>sumChargeback<span class="o">(</span><span class="s2">&quot;group_field&quot;</span>,<span class="w"> </span>num_time,<span class="w"> </span>time_unit,<span class="w"> </span><span class="o">[</span><span class="s2">&quot;group_by_additional_fields&quot;</span><span class="o">])</span>
+</code></pre></div>
+<p>Подсчет суммы возвратов в разрезе поля указанного в <code>group_field</code> за период по num_time, time_unit, также могут быть
+указаны дополнительные поля группировки (<code>party_id, shop_id</code> и т.д.)</p>
+<div class="highlight"><pre><span></span><code>sumRefund<span class="o">(</span><span class="s2">&quot;group_field&quot;</span>,<span class="w"> </span>num_time,<span class="w"> </span>time_unit,<span class="w"> </span><span class="o">[</span><span class="s2">&quot;group_by_additional_fields&quot;</span><span class="o">])</span>
+</code></pre></div>
+<p><a href="../examples/#_5">Примеры</a></p>
+<h2 id="_5">Количество уникальных значений<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>Подсчет количества уникальных значений поля by_field в разрезе поля указанного в <code>group_field</code> за период по
+num_time, time_unit, также могут быть указаны дополнительные поля группировки (<code>party_id, shop_id</code> и т.д.)</p>
+<div class="highlight"><pre><span></span><code>unique<span class="o">((</span><span class="s2">&quot;group_field&quot;</span>,<span class="w"> </span><span class="s2">&quot;by_field&quot;</span>,<span class="w"> </span>num_time,<span class="w"> </span>time_unit,<span class="w"> </span><span class="o">[</span><span class="s2">&quot;group_by_additional_fields&quot;</span><span class="o">])</span>
+</code></pre></div>
+<p><a href="../examples/#ip-email">Примеры</a></p>
+<h2 id="_6">Проверка по спискам<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>Производится проверка в предзагруженных списках (белом, черном, именованном, серым)</p>
+<div class="highlight"><pre><span></span><code>inWhiteList<span class="o">(</span><span class="s2">&quot;field&quot;</span><span class="o">)</span>
+inBlackList<span class="o">(</span><span class="s2">&quot;field&quot;</span><span class="o">)</span>
+inList<span class="o">(</span><span class="s2">&quot;test&quot;</span>,<span class="w"> </span><span class="s2">&quot;email&quot;</span><span class="o">)</span>
+inGreyList<span class="o">(</span><span class="s2">&quot;email&quot;</span><span class="o">)</span>
+</code></pre></div>
+<p><a href="../examples/#_3">Примеры</a></p>
+<h2 id="_7">Определение типа платежа<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>Определение, что выставлен признак мобильного платежа</p>
+<div class="highlight"><pre><span></span><code>isMobile<span class="o">()</span>
+</code></pre></div>
+<p><a href="../examples/#_12">Примеры</a></p>
+<p>Определение, что выставлен признак рекурентного платежа</p>
+<div class="highlight"><pre><span></span><code>isRecurrent<span class="o">()</span>
+</code></pre></div>
+<p><a href="../examples/#_11">Примеры</a></p>
+<h2 id="_8">Определение доверенного клиента<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>С помощью данной функции можно определелить доверяем ли мы данному плательщику</p>
+<div class="highlight"><pre><span></span><code>isTrusted<span class="o">()</span>
+</code></pre></div>
+<p><a href="../examples/#_8">Примеры</a></p>
+<h2 id="_9">Вспомогательные функции<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>Сравнивает поля с конкретными значениями в списке</p>
+<div class="highlight"><pre><span></span><code><span class="k">in</span><span class="o">((</span><span class="s2">&quot;field&quot;</span>,<span class="w"> </span><span class="s2">&quot;first&quot;</span>,<span class="w"> </span><span class="s2">&quot;second&quot;</span>,<span class="w"> </span>...<span class="o">)</span>
+</code></pre></div>
+<p><a href="../examples/#_13">Примеры</a></p>
+<p>Сравнивает соотвествия поля регулярному выражению</p>
+<div class="highlight"><pre><span></span><code>like<span class="o">(</span><span class="s2">&quot;field&quot;</span>,<span class="w"> </span><span class="s2">&quot;regexp_in_java_style&quot;</span><span class="o">[</span><span class="m">1</span><span class="o">])</span>
+</code></pre></div>
+<p><a href="../examples/#_13">Примеры</a></p>
+<p>Возвращает сумму текущего платежа</p>
+<div class="highlight"><pre><span></span><code>amount<span class="o">()</span>
+</code></pre></div>
+<p><a href="../examples/#_6">Примеры</a></p>
+<p>Возвращает страну по предоставленному IP</p>
+<div class="highlight"><pre><span></span><code>country<span class="o">()</span><span class="w"> </span>-<span class="w"> </span>this<span class="w"> </span><span class="k">function</span><span class="w"> </span>can<span class="w"> </span><span class="k">return</span><span class="w"> </span>result<span class="w"> </span><span class="s2">&quot;unknown&quot;</span>,<span class="w"> </span>you<span class="w"> </span>must<span class="w"> </span>remember<span class="w"> </span>it!
+</code></pre></div>
+<p><a href="../examples/#ip">Примеры</a></p>
+<p>Возвращает тип карты debit/credit</p>
+<div class="highlight"><pre><span></span><code>cardCategory<span class="o">()</span>
+</code></pre></div>
+<p><a href="../examples/#_9">Примеры</a></p>
+<p>Возвращает платежную систему VISA/MASTERCARD и т.д.</p>
+<div class="highlight"><pre><span></span><code>paymentSystem<span class="o">()</span>
+</code></pre></div>
+<p><a href="../examples/#_10">Примеры</a></p>
+<h2 id="_10">Возможные результаты применения шаблона:<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>accept 
+3ds
+highRisk
+decline
+normal
+notify
+declineAndNotify
+acceptAndNotify
+</code></pre></div>
+<h2 id="catch">Возможные результаты обработки исключений (catch):<a class="headerlink" href="#catch" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>accept
+3ds
+highRisk
+notify
+</code></pre></div>
+
+
+</section>
+
+</div> <!-- end of page-inner -->
+</div> <!-- end of page-wrapper -->
+
+</div> <!-- end of body-inner -->
+
+</div> <!-- end of book-body -->
+<script src="../../js/main.js"></script>
+<script src="../../js/gitbook.min.js"></script>
+<script src="../../js/theme.min.js"></script>
+</body>
+</html>
