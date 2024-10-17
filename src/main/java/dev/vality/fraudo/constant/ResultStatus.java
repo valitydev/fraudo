@@ -5,6 +5,7 @@ import java.util.Map;
 
 public enum ResultStatus {
 
+    TRUST("trust"),
     ACCEPT("accept"),
     ACCEPT_AND_NOTIFY("acceptAndNotify"),
     THREE_DS("3ds"),
