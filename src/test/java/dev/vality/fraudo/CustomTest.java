@@ -28,6 +28,13 @@ public class CustomTest extends AbstractPaymentTest {
     }
 
     @Test
+    void trustTest() throws Exception {
+        InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/trust.frd");
+        ResultModel result = parseAndVisit(resourceAsStream);
+        assertEquals(ResultStatus.TRUST, ResultUtils.findFirstNotNotifyStatus(result).get().getResultStatus());
+    }
+
+    @Test
     void threeDsTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/three_ds.frd");
         when(countPaymentAggregator.count(anyObject(), any(), any(), any())).thenReturn(10);
