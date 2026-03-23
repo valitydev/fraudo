@@ -36,6 +36,7 @@ import static dev.vality.fraudo.FraudoPaymentParser.*;
 public class FirstFindVisitorImpl<T extends BaseModel, U> extends FraudoPaymentBaseVisitor<Object>
         implements TemplateVisitor<T, ResultModel> {
 
+    public static final String UNKNOWN = "UNKNOWN";
     private ThreadLocal<Map<String, Object>> localFuncCache = ThreadLocal.withInitial(HashMap::new);
     private ThreadLocal<T> threadLocalModel = new ThreadLocal<>();
 
@@ -208,7 +209,8 @@ public class FirstFindVisitorImpl<T extends BaseModel, U> extends FraudoPaymentB
         if (ctx.STRING() != null) {
             return TextUtil.safeGetText(ctx.STRING());
         }
-        return (String) visitChildren(ctx);
+        Object children = visitChildren(ctx);
+        return children != null ? children.toString() : UNKNOWN;
     }
 
     @Override
@@ -218,7 +220,7 @@ public class FirstFindVisitorImpl<T extends BaseModel, U> extends FraudoPaymentB
 
     @Override
     public String visitCurrency(CurrencyContext ctx) {
-        return threadLocalModel.get().getCurrency();
+        return threadLocalModel.get().getCurrency() != null ? threadLocalModel.get().getCurrency() : UNKNOWN;
     }
 
     @Override
@@ -252,7 +254,7 @@ public class FirstFindVisitorImpl<T extends BaseModel, U> extends FraudoPaymentB
             fieldValue = (String) visitChildren(ctx.stringExpression());
         }
         return ctx.string_list().STRING().stream()
-                .anyMatch(s -> fieldValue.equals(TextUtil.safeGetText(s)));
+                .anyMatch(s -> TextUtil.safeGetText(s).equals(fieldValue));
     }
 
     @Override
@@ -427,12 +429,12 @@ public class FirstFindVisitorImpl<T extends BaseModel, U> extends FraudoPaymentB
 
     @Override
     public String visitCard_category(FraudoPaymentParser.Card_categoryContext ctx) {
-        return threadLocalModel.get().getCardCategory();
+        return threadLocalModel.get().getCardCategory() != null ? threadLocalModel.get().getCardCategory() : UNKNOWN;
     }
 
     @Override
     public String visitPayment_system(Payment_systemContext ctx) {
-        return threadLocalModel.get().getPaymentSystem();
+        return threadLocalModel.get().getPaymentSystem() != null ? threadLocalModel.get().getPaymentSystem() : UNKNOWN;
     }
 
     @Override

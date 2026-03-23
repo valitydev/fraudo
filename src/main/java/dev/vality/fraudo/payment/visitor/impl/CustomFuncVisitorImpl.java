@@ -37,6 +37,9 @@ public class CustomFuncVisitorImpl<T, U> implements CustomFuncVisitor<T> {
         String fieldName = TextUtil.safeGetText(ctx.STRING(0));
         String fieldValue = fieldResolver.resolve(fieldName, model).getSecond();
         String pattern = TextUtil.safeGetText(ctx.STRING(1));
+        if (fieldValue == null) {
+            return false;
+        }
         return fieldValue.matches(pattern);
     }
 
