@@ -16,7 +16,6 @@ import java.util.concurrent.CountDownLatch;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -82,24 +81,6 @@ public class RealTimerTest extends AbstractPaymentTest {
                     countDownLatch.countDown();
                     return 1;
                 });
-        lenient().when(countPaymentAggregator.countSuccess(any(), any(), any(), any()))
-                .thenAnswer((Answer<Integer>) invocationOnMock -> {
-                    Thread.sleep(TIME_CALL_AGGR_FUNC);
-                    countDownLatch.countDown();
-                    return 1;
-                });
-
-        lenient().when(sumPaymentAggregator.sum(any(), any(), any(), any()))
-                .thenAnswer((Answer<Double>) invocationOnMock -> {
-                    Thread.sleep(TIME_CALL_AGGR_FUNC);
-                    return 10000.0;
-                });
-        lenient().when(sumPaymentAggregator.sumSuccess(any(), any(), any(), any()))
-                .thenAnswer((Answer<Double>) invocationOnMock -> {
-                    Thread.sleep(TIME_CALL_AGGR_FUNC);
-                    return 10000.0;
-                });
-
         when(inListFinder.findInWhiteList(anyList(), any()))
                 .thenAnswer((Answer<Boolean>) invocationOnMock -> {
                     Thread.sleep(MILLISTIME_FAST_FUNC);
