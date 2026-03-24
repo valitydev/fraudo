@@ -9,23 +9,20 @@ import dev.vality.fraudo.utils.ResultUtils;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.InputStream;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 public class IsTrustedTest extends AbstractPaymentTest {
-
-    @BeforeEach
-    public void init() {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Test
     void trustedTest() {
@@ -41,28 +38,28 @@ public class IsTrustedTest extends AbstractPaymentTest {
 
     @Test
     void trustedWithWithdrawalsConditionsTest() {
-        when(customerTypeResolver.isTrusted(any(), isNull(List.class), anyListOf(TrustCondition.class)))
+        when(customerTypeResolver.isTrusted(any(), isNull(List.class), anyList()))
                 .thenReturn(true);
         testIsTrusted("/rules/is_trusted_with_withdrawals_conditions.frd");
     }
 
     @Test
     void trustedWithPaymentsConditionsTest() {
-        when(customerTypeResolver.isTrusted(any(), anyListOf(TrustCondition.class), isNull(List.class)))
+        when(customerTypeResolver.isTrusted(any(), anyList(), isNull(List.class)))
                 .thenReturn(true);
         testIsTrusted("/rules/is_trusted_with_payments_conditions.frd");
     }
 
     @Test
     void trustedWithPaymentsAndWithdrawalSingleConditionsTest() {
-        when(customerTypeResolver.isTrusted(any(), anyListOf(TrustCondition.class), anyListOf(TrustCondition.class)))
+        when(customerTypeResolver.isTrusted(any(), anyList(), anyList()))
                 .thenReturn(true);
         testIsTrusted("/rules/is_trusted_with_payments_and_withdrawals_single_conditions.frd");
     }
 
     @Test
     void trustedWithPaymentsAndWithdrawalTest() {
-        when(customerTypeResolver.isTrusted(any(), anyListOf(TrustCondition.class), anyListOf(TrustCondition.class)))
+        when(customerTypeResolver.isTrusted(any(), anyList(), anyList()))
                 .thenReturn(true);
         testIsTrusted("/rules/is_trusted_with_payments_and_withdrawals_conditions.frd");
 
@@ -76,11 +73,11 @@ public class IsTrustedTest extends AbstractPaymentTest {
         assertNotNull(paymentModelCaptor.getValue());
         assertEquals(1, paymentsCaptor.getAllValues().size());
         List<TrustCondition> payments = paymentsCaptor.getValue();
-        assertTrustedCondition("RUB",1,1000,10, payments.get(0));
+        assertTrustedCondition("RUB", 1, 1000, 10, payments.get(0));
         assertTrustedCondition("EUR", 2, 20, null, payments.get(1));
         assertEquals(1, withdrawalsCaptor.getAllValues().size());
         List<TrustCondition> withdrawals = withdrawalsCaptor.getValue();
-        assertTrustedCondition("USD",3,3000,3, withdrawals.get(0));
+        assertTrustedCondition("USD", 3, 3000, 3, withdrawals.get(0));
         assertTrustedCondition("CAD", 4, 4, null, withdrawals.get(1));
 
     }

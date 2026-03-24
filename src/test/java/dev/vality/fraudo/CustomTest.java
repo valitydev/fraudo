@@ -7,25 +7,20 @@ import dev.vality.fraudo.model.ResultModel;
 import dev.vality.fraudo.test.model.PaymentModel;
 import dev.vality.fraudo.utils.ResultUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.InputStream;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 @Slf4j
+@ExtendWith(MockitoExtension.class)
 public class CustomTest extends AbstractPaymentTest {
 
     public static final String TEST_GMAIL_RU = "test@gmail.ru";
-
-    @BeforeEach
-    public void init() {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Test
     void trustTest() throws Exception {
@@ -37,7 +32,7 @@ public class CustomTest extends AbstractPaymentTest {
     @Test
     void threeDsTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/three_ds.frd");
-        when(countPaymentAggregator.count(anyObject(), any(), any(), any())).thenReturn(10);
+        when(countPaymentAggregator.count(any(), any(), any(), any())).thenReturn(10);
         ResultModel result = parseAndVisit(resourceAsStream);
         assertEquals(ResultStatus.THREE_DS, ResultUtils.findFirstNotNotifyStatus(result).get().getResultStatus());
     }
@@ -45,7 +40,7 @@ public class CustomTest extends AbstractPaymentTest {
     @Test
     void highRiskTest() throws Exception {
         InputStream resourceAsStream = CustomTest.class.getResourceAsStream("/rules/highRisk.frd");
-        when(countPaymentAggregator.count(anyObject(), any(), any(), any())).thenReturn(10);
+        when(countPaymentAggregator.count(any(), any(), any(), any())).thenReturn(10);
         ResultModel result = parseAndVisit(resourceAsStream);
         assertEquals(ResultStatus.HIGH_RISK, ResultUtils.findFirstNotNotifyStatus(result).get().getResultStatus());
     }
@@ -113,6 +108,7 @@ public class CustomTest extends AbstractPaymentTest {
 
         ParseContext parseContext = getParseContext(resourceAsStream);
         PaymentModel model = new PaymentModel();
+        model.setIp("127.0.0.1");
         model.setAmount(500L);
         ResultModel result = invoke(parseContext, model);
         assertEquals(ResultStatus.ACCEPT, ResultUtils.findFirstNotNotifyStatus(result).get().getResultStatus());
