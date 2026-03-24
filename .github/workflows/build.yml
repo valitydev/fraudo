@@ -8,3 +8,5 @@ on:
 jobs:
   build:
     uses: valitydev/java-workflow/.github/workflows/maven-library-build.yml@v4
+    with:
+      java-version: 15
