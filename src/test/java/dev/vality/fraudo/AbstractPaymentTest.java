@@ -8,6 +8,8 @@ import dev.vality.fraudo.bundle.ResolverBundle;
 import dev.vality.fraudo.bundle.VisitorBundle;
 import dev.vality.fraudo.finder.InListFinder;
 import dev.vality.fraudo.model.ResultModel;
+import dev.vality.fraudo.FraudoPaymentParser;
+import dev.vality.fraudo.FraudoPaymentLexer;
 import dev.vality.fraudo.payment.aggregator.CountPaymentAggregator;
 import dev.vality.fraudo.payment.aggregator.SumPaymentAggregator;
 import dev.vality.fraudo.payment.factory.FraudVisitorFactoryImpl;
@@ -23,11 +25,14 @@ import dev.vality.fraudo.test.model.PaymentModel;
 import dev.vality.fraudo.test.payment.PaymentModelFieldResolver;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
 import java.io.InputStream;
 
+@ExtendWith(MockitoExtension.class)
 public class AbstractPaymentTest {
 
     @Mock
@@ -92,10 +97,8 @@ public class AbstractPaymentTest {
     }
 
     ParseContext getParseContext(InputStream resourceAsStream) throws IOException {
-        FraudoPaymentLexer lexer =
-                new FraudoPaymentLexer(new ANTLRInputStream(resourceAsStream));
-        FraudoPaymentParser parser =
-                new FraudoPaymentParser(new CommonTokenStream(lexer));
+        FraudoPaymentLexer lexer = new FraudoPaymentLexer(new ANTLRInputStream(resourceAsStream));
+        FraudoPaymentParser parser = new FraudoPaymentParser(new CommonTokenStream(lexer));
         return parser.parse();
     }
 
