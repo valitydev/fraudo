@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>Примеры - Fraudo|docs</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="generator" content="mkdocs-1.6.1, mkdocs-gitbook-1.0.7">
+
+<link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta rel="next" href="" />
+<link href="../../css/style.min.css" rel="stylesheet"> 
+</head>
+
+<body>
+<div class="book">
+<div class="book-summary">
+
+<nav role="navigation">
+<ul class="summary">
+<li>
+<a href="../.." target="_blank" class="custom-link">Fraudo|docs</a>
+</li>
+<li class="divider"></li>
+<li class="chapter" data-path="">
+<a href="../..">О языке</a>
+<li class="header">Синтаксис</li>
+
+<li>
+<a href="../syntax/" class="">Синтаксис</a>
+</li>
+
+<li>
+<a href="../operations/" class="">Операции</a>
+</li>
+
+<li>
+<a href="./" class="active">Примеры</a>
+</li>
+
+<li class="divider"></li>
+
+
+
+<li><a href="http://www.mkdocs.org">
+Published with MkDocs
+</a></li>
+
+<li><a href="https://github.com/GitbookIO/theme-default">
+Theme by GitBook
+</a></li>
+</ul>
+
+</nav>
+
+</div> <!-- end of book-summary -->
+
+<div class="book-body">
+<div class="body-inner">
+<div class="book-header" role="navigation">
+
+<!-- Title -->
+<h1>
+<i class="fa fa-circle-o-notch fa-spin"></i>
+<a href="." ></a>
+</h1>
+
+</div> <!-- end of book-header -->
+
+<div class="page-wrapper" tabindex="-1" role="main">
+<div class="page-inner">
+
+<section class="normal markdown-section">
+
+
+
+<h1 id="_1">Примеры<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h4 id="_2">Простой пример с логическим оператором <strong>И</strong>:<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>rule:<span class="w"> </span>
+<span class="w">    </span><span class="m">3</span><span class="w"> </span>&gt;<span class="w"> </span><span class="m">2</span><span class="w"> </span>AND<span class="w"> </span><span class="nv">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>
+-&gt;<span class="w"> </span>accept<span class="p">;</span>
+</code></pre></div>
+<h4 id="_3">Пример работы с черными списками:<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>rule:<span class="w"> </span>
+<span class="w">  </span>inBlackList<span class="o">(</span><span class="s2">&quot;email&quot;</span><span class="o">)</span>
+-&gt;<span class="w"> </span>notify<span class="p">;</span>
+</code></pre></div>
+<p>данная функция может принимать список параметров:</p>
+<div class="highlight"><pre><span></span><code>rule:<span class="w"> </span>
+<span class="w">  </span>inBlackList<span class="o">(</span><span class="s2">&quot;email&quot;</span>,<span class="w"> </span><span class="s2">&quot;fingerprint&quot;</span>,<span class="w"> </span><span class="s2">&quot;card_token&quot;</span>,<span class="w"> </span><span class="s2">&quot;bin&quot;</span>,<span class="w"> </span><span class="s2">&quot;ip&quot;</span><span class="o">)</span>
+-&gt;<span class="w"> </span>notify<span class="p">;</span>
+</code></pre></div>
+<h4 id="_4">Работа с белыми списками аналогична:<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>rule:<span class="w"> </span>check_in_white_list_rule:<span class="w"> </span>
+<span class="w">  </span>inWhiteList<span class="o">(</span><span class="s2">&quot;email&quot;</span>,<span class="w"> </span><span class="s2">&quot;fingerprint&quot;</span>,<span class="w"> </span><span class="s2">&quot;card_token&quot;</span>,<span class="w"> </span><span class="s2">&quot;bin&quot;</span>,<span class="w"> </span><span class="s2">&quot;ip&quot;</span><span class="o">)</span>
+-&gt;<span class="w"> </span>notify<span class="p">;</span>
+</code></pre></div>
+<h4 id="_5">Работа с счетчиками:<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>rule:<span class="w"> </span>
+<span class="w">  </span><span class="o">(</span>count<span class="o">(</span><span class="s2">&quot;ip&quot;</span>,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span>days<span class="o">)</span><span class="w"> </span>&gt;<span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="w"> </span>OR<span class="w"> </span>countSuccess<span class="o">(</span><span class="s2">&quot;email&quot;</span>,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span>days<span class="o">)</span><span class="w"> </span>&gt;<span class="w"> </span><span class="m">5</span><span class="o">)</span>
+<span class="w">        </span>AND<span class="w"> </span>countError<span class="o">(</span><span class="s2">&quot;fingerprint&quot;</span>,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span>calendar_days,<span class="w"> </span><span class="s2">&quot;error_code&quot;</span><span class="o">)</span><span class="w"> </span>&gt;<span class="w"> </span><span class="m">5</span>
+-&gt;<span class="w"> </span>notify<span class="p">;</span>
+</code></pre></div>
+<p>Вызываются функции подсчета количества операций в разрезе ip, 
+подсчет успешных платежей в разрезе email, а также количество конкретных ошибок при оплатах.</p>
+<p><strong><em>Это работает следующим образом</em></strong> - <em>если количество платежей на один ip в сутки &gt;= 10 
+или количество успешных платежей на один mail за сутки &gt; 5 
+и при выполнении одного из этих условий количество ошибок с кодом &ldquo;error_code&rdquo; на один fingerprint за календарнык сутки &gt; 5, 
+будет выслана уведомление</em>.</p>
+<p>Работа с функциями <a href="../operations/#summ">сумм</a> производится аналогично.</p>
+<h4 id="ip-email">Количество уникальных ip на один email<a class="headerlink" href="#ip-email" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>rule:<span class="w"> </span>unique<span class="o">(</span><span class="s2">&quot;email&quot;</span>,<span class="w"> </span><span class="s2">&quot;ip&quot;</span><span class="o">)</span><span class="w"> </span>&lt;<span class="w"> </span><span class="m">4</span>
+-&gt;<span class="w"> </span>decline<span class="p">;</span>
+</code></pre></div>
+<h4 id="ip">Определение страны по ip<a class="headerlink" href="#ip" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>rule:<span class="w"> </span>country<span class="o">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;RU&quot;</span>
+-&gt;<span class="w"> </span>notify<span class="p">;</span>
+</code></pre></div>
+<h4 id="_6">Определение суммы платежа<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>rule:<span class="w"> </span>amount<span class="o">()</span><span class="w"> </span>&lt;<span class="w"> </span><span class="m">100</span>
+-&gt;<span class="w"> </span>accept<span class="p">;</span>
+</code></pre></div>
+<h4 id="_7">Работа с обработчиком ошибок<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>rule:<span class="w"> </span>
+<span class="w">  </span>unique<span class="o">(</span><span class="s2">&quot;email&quot;</span>,<span class="w"> </span><span class="s2">&quot;ip&quot;</span><span class="o">)</span><span class="w"> </span>&lt;<span class="w"> </span><span class="m">4</span><span class="w"> </span>-&gt;<span class="w"> </span>accept
+catch:<span class="w"> </span>decline<span class="p">;</span>
+</code></pre></div>
+<p>В случае технической ошибки во время работы данной функции транзакция будет помечена как <code>decline</code>,
+по умолчанию система возвращает <code>normal</code> и продолжает проверять правила</p>
+<h4 id="_8">Определение доверенного трафика<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>rule:<span class="w"> </span>isTrusted<span class="o">(</span>
+<span class="w">    </span>paymentsConditions<span class="o">(</span>
+<span class="w">        </span>condition<span class="o">(</span><span class="s2">&quot;RUB&quot;</span>,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">1000</span>,<span class="w"> </span><span class="m">10</span><span class="o">)</span>,
+<span class="w">        </span>condition<span class="o">(</span><span class="s2">&quot;EUR&quot;</span>,<span class="w"> </span><span class="m">2</span>,<span class="w"> </span><span class="m">20</span><span class="o">)</span>
+<span class="w">    </span><span class="o">)</span>,
+<span class="w">    </span>withdrawalsConditions<span class="o">(</span>
+<span class="w">        </span>condition<span class="o">(</span><span class="s2">&quot;USD&quot;</span>,<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="m">3000</span>,<span class="w"> </span><span class="m">3</span><span class="o">)</span>
+<span class="w">    </span><span class="o">)</span>
+<span class="o">)</span><span class="w"> </span>-&gt;<span class="w"> </span>accept<span class="p">;</span>
+</code></pre></div>
+<p>В случае если сумма за 1 последний год &gt; 100 рублей и количество транзакций &gt; 10 
+или количество транзакций за 2 последних года  &gt; 20 в евро 
+или количество выплат в USD за 3 последних года по сумме &gt; 3000 или больше 3 успешных операций,
+то операция будет помечена как <code>accept</code>.</p>
+<h4 id="_9">Определение типа карты<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>rule:<span class="w"> </span>
+<span class="w">  </span>cardCategory<span class="o">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;credit&quot;</span>
+-&gt;<span class="w"> </span>accept<span class="p">;</span>
+</code></pre></div>
+<h4 id="_10">Определение платежной системы<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>rule:<span class="w"> </span>
+<span class="w">  </span>paymentSystem<span class="o">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;VISA&quot;</span>
+-&gt;<span class="w"> </span>accept<span class="p">;</span>
+</code></pre></div>
+<h4 id="_11">Определение рекурентного платежа<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>rule:<span class="w"> </span>
+<span class="w">  </span>isRecurrent<span class="o">()</span>
+-&gt;<span class="w"> </span>accept<span class="p">;</span>
+</code></pre></div>
+<h4 id="_12">Определение мобильного платежа<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>rule:<span class="w"> </span>
+<span class="w">  </span>isMobile<span class="o">()</span>
+-&gt;<span class="w"> </span>accept<span class="p">;</span>
+</code></pre></div>
+<h4 id="_13">Сравнение по шаблону и в списке<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
+<p><div class="highlight"><pre><span></span><code>rule:<span class="w"> </span>cb:
+<span class="w">  </span>like<span class="o">(</span><span class="s2">&quot;bin&quot;</span>,<span class="w"> </span><span class="s2">&quot;5536.*&quot;</span><span class="o">)</span><span class="w"> </span>AND<span class="w"> </span><span class="k">in</span><span class="o">(</span><span class="s2">&quot;pan&quot;</span>,<span class="w"> </span><span class="s2">&quot;9137&quot;</span>,<span class="w"> </span><span class="s2">&quot;1231&quot;</span><span class="o">)</span>
+-&gt;<span class="w"> </span>decline<span class="p">;</span>
+</code></pre></div>
+Регулярные выражения формируются в стиле <a href="https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html">java</a></p>
+<h4 id="_14">Пример шаблона с несколькими правилами<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># принимаем платеж, если хотя бы один из указанных параметров находится в вайтлисте</span>
+rule:<span class="w"> </span>inWhiteList<span class="o">(</span><span class="s2">&quot;email&quot;</span>,<span class="w"> </span><span class="s2">&quot;fingerprint&quot;</span>,<span class="w"> </span><span class="s2">&quot;card&quot;</span>,<span class="w"> </span><span class="s2">&quot;bin&quot;</span>,<span class="w"> </span><span class="s2">&quot;ip&quot;</span><span class="o">)</span><span class="w"> </span>
+-&gt;<span class="w"> </span>accept<span class="p">;</span><span class="w"> </span>
+
+<span class="c1"># отклоняем платеж, если хотя бы один из указанных параметров находится в блэклисте</span>
+rule:<span class="w"> </span>inBlackList<span class="o">(</span><span class="s2">&quot;email&quot;</span>,<span class="w"> </span><span class="s2">&quot;fingerprint&quot;</span>,<span class="w"> </span><span class="s2">&quot;card&quot;</span>,<span class="w"> </span><span class="s2">&quot;bin&quot;</span>,<span class="w"> </span><span class="s2">&quot;ip&quot;</span><span class="o">)</span><span class="w"> </span>
+-&gt;<span class="w"> </span>decline<span class="p">;</span><span class="w"> </span>
+
+<span class="c1"># эти страны блочим всегда</span>
+rule:<span class="w"> </span><span class="k">in</span><span class="o">(</span>countryBy<span class="o">(</span><span class="s2">&quot;bin&quot;</span><span class="o">)</span>,<span class="w"> </span><span class="s2">&quot;AS&quot;</span>,<span class="w"> </span><span class="s2">&quot;SD&quot;</span>,<span class="w"> </span><span class="s2">&quot;TR&quot;</span>,<span class="w"> </span><span class="s2">&quot;WE&quot;</span>,<span class="w"> </span><span class="s2">&quot;SD&quot;</span>,<span class="w"> </span><span class="s2">&quot;CD&quot;</span>,<span class="w"> </span><span class="s2">&quot;KL&quot;</span>,<span class="w"> </span><span class="s2">&quot;EW&quot;</span>,<span class="w"> </span><span class="s2">&quot;VF&quot;</span>,<span class="w"> </span><span class="s2">&quot;XZ&quot;</span>,<span class="w"> </span><span class="s2">&quot;CD&quot;</span><span class="o">)</span><span class="w"> </span>
+-&gt;<span class="w"> </span>decline<span class="p">;</span><span class="w"> </span>
+
+<span class="c1"># лимит суммы платежа 10 баксов для </span>
+rule:<span class="w"> </span>amount<span class="o">()</span><span class="w"> </span>&gt;<span class="w"> </span><span class="m">1000</span><span class="w"> </span>AND<span class="w"> </span><span class="k">in</span><span class="o">(</span>countryBy<span class="o">(</span><span class="s2">&quot;bin&quot;</span><span class="o">)</span>,<span class="w"> </span><span class="s2">&quot;DS&quot;</span>,<span class="w"> </span><span class="s2">&quot;LA&quot;</span>,<span class="w"> </span><span class="s2">&quot;AS&quot;</span><span class="o">)</span><span class="w"> </span>
+-&gt;<span class="w"> </span>decline<span class="p">;</span><span class="w"> </span>
+
+<span class="c1"># лимит суммы платежа 10 баксов для некоторых стран</span>
+rule:<span class="w"> </span>amount<span class="o">()</span><span class="w"> </span>&gt;<span class="w"> </span><span class="m">1000</span><span class="w"> </span>AND<span class="w"> </span><span class="k">in</span><span class="o">(</span>countryBy<span class="o">(</span><span class="s2">&quot;bin&quot;</span><span class="o">)</span>,<span class="w"> </span><span class="s2">&quot;VC&quot;</span>,<span class="w"> </span><span class="s2">&quot;WE&quot;</span><span class="o">)</span><span class="w"> </span>
+-&gt;<span class="w"> </span>decline<span class="p">;</span>
+
+<span class="c1"># лимит по сумме платежа &gt; 100 условных единиц в валюте платежа</span>
+rule:<span class="w"> </span>amount<span class="o">()</span><span class="w"> </span>&gt;<span class="w"> </span><span class="m">10000</span><span class="w"> </span>
+-&gt;<span class="w"> </span>decline<span class="p">;</span>
+</code></pre></div>
+
+
+</section>
+
+</div> <!-- end of page-inner -->
+</div> <!-- end of page-wrapper -->
+
+</div> <!-- end of body-inner -->
+
+</div> <!-- end of book-body -->
+<script src="../../js/main.js"></script>
+<script src="../../js/gitbook.min.js"></script>
+<script src="../../js/theme.min.js"></script>
+</body>
+</html>
